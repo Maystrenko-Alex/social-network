@@ -5,7 +5,14 @@
   padding-left: 10px;
   padding: 10px;
   margin-right: 10px;
+
 }
-.item {
-  
+
+.activeClass {
+  color: gold;
+
+}
+
+.item a{
+  text-decoration: none;
 }
