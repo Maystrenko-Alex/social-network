@@ -7,14 +7,10 @@
   width: 50%;
 }
 
-.dialogsItems .active {
+.activeClass {
   color: gold;
 }
 
 .messages {
   width: 50%;
 }
-
-/* .dialog {
-  
-} */
