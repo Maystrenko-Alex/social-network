@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { DialogsDataType, MessageDataType } from '.';
+import { DialogsDataType, MessageDataType, PostsDataType } from '.';
 import './App.css';
 import { Dialogs } from './components/Dialogs/Dialogs';
 import Header from './components/Header/Header';
@@ -13,7 +13,8 @@ import Settings from './components/Settings/Settings';
 
 type AppPropsType = {
   dialogsData: DialogsDataType,
-  messageData: MessageDataType
+  messageData: MessageDataType,
+  postsData: PostsDataType
 }
 
 function App(props: AppPropsType) {
@@ -25,8 +26,8 @@ function App(props: AppPropsType) {
           <Navbar />
           <div className='content'>
             <Routes>
-              <Route index element={<Profile />} />
-              <Route path='/profile' element={<Profile />} />
+              <Route index element={<Profile postsData={props.postsData}/>} />
+              <Route path='/profile' element={<Profile postsData={props.postsData}/>} />
               <Route path='/dialogs/*' element={<Dialogs dialogsData={props.dialogsData} messageData={props.messageData}/>} />
               <Route path='/news/' element={(<News />)} />
               <Route path='/music' element={<Music />} />

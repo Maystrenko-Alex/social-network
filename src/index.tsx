@@ -13,6 +13,13 @@ export type MessageDataType = {
   id: number,
   message: string
 }[]
+
+export type PostsDataType = {
+  id: number,
+  message: string,
+  likesCount: number
+}[]
+
 let dialogsData: DialogsDataType = [
   { id: 1, name: 'Dimych' },
   { id: 2, name: 'Andrew' },
@@ -27,10 +34,16 @@ let messageData: MessageDataType = [
   { id: 3, message: 'Yooo' },
 ]
 
+let postsData: PostsDataType = [
+  {id: 1, message: 'Hello! How are youuuu?', likesCount: 1},
+  {id: 2, message: 'Its my first post ;)', likesCount: 13},
+  {id: 3, message: 'yoo', likesCount: 4},
+]
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-root.render(<App dialogsData={dialogsData} messageData={messageData} />);
+root.render(<App dialogsData={dialogsData} messageData={messageData} postsData={postsData}/>);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
