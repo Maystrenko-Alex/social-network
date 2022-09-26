@@ -8,6 +8,8 @@ export const MyPosts = () => {
     {id: 2, message: 'Its my first post ;)', likesCount: 13},
     {id: 3, message: 'yoo', likesCount: 4},
   ]
+  const postsElements = postsData.map(p => 
+  <Post title={p.message} likesCount={p.likesCount} />);
   return (
     <div className={s.postsBlock}>
       <h3>My posts</h3>
@@ -18,9 +20,7 @@ export const MyPosts = () => {
         <button>Add post</button>
       </div>
       <div className={s.posts}>
-        <Post title={postsData[0].message} likesCount={postsData[0].likesCount} />
-        <Post title={postsData[1].message} likesCount={postsData[1].likesCount} />
-        <Post title={postsData[2].message} likesCount={postsData[2].likesCount} />
+        {postsElements}
       </div>
     </div>
   );
