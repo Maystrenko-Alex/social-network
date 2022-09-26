@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { DialogsDataType, MessageDataType } from '.';
 import './App.css';
 import { Dialogs } from './components/Dialogs/Dialogs';
 import Header from './components/Header/Header';
@@ -10,7 +11,12 @@ import NotFound from './components/NotFound/NotFound';
 import { Profile } from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 
-function App() {
+type AppPropsType = {
+  dialogsData: DialogsDataType,
+  messageData: MessageDataType
+}
+
+function App(props: AppPropsType) {
   return (
     <BrowserRouter>
       <div className="App_wrapper">
@@ -21,7 +27,7 @@ function App() {
             <Routes>
               <Route index element={<Profile />} />
               <Route path='/profile' element={<Profile />} />
-              <Route path='/dialogs/*' element={<Dialogs />} />
+              <Route path='/dialogs/*' element={<Dialogs dialogsData={props.dialogsData} messageData={props.messageData}/>} />
               <Route path='/news/' element={(<News />)} />
               <Route path='/music' element={<Music />} />
               <Route path='/settings' element={<Settings />} />
