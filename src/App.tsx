@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { DialogsDataType, MessageDataType, PostsDataType } from '.';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { Dialogs } from './components/Dialogs/Dialogs';
 import Header from './components/Header/Header';
@@ -9,36 +8,32 @@ import { Navbar } from './components/Navbar/Navbar';
 import News from './components/News/News';
 import NotFound from './components/NotFound/NotFound';
 import { Profile } from './components/Profile/Profile';
+import { StateType } from './components/redux/state';
 import Settings from './components/Settings/Settings';
 
 type AppPropsType = {
-  dialogsData: DialogsDataType,
-  messageData: MessageDataType,
-  postsData: PostsDataType
+  state: StateType
 }
 
 function App(props: AppPropsType) {
   return (
-    <BrowserRouter>
-      <div className="App_wrapper">
-        <Header />
-        <div className='wrapper'>
-          <Navbar />
-          <div className='content'>
-            <Routes>
-              <Route index element={<Profile postsData={props.postsData}/>} />
-              <Route path='/profile' element={<Profile postsData={props.postsData}/>} />
-              <Route path='/dialogs/*' element={<Dialogs dialogsData={props.dialogsData} messageData={props.messageData}/>} />
-              <Route path='/news/' element={(<News />)} />
-              <Route path='/music' element={<Music />} />
-              <Route path='/settings' element={<Settings />} />
-              <Route path='/*' element={<NotFound />} />
-
-            </Routes>
-          </div>
+    <div className="App_wrapper">
+      <Header />
+      <div className='wrapper'>
+        <Navbar sidebar={props.state.sidebar} />
+        <div className='content'>
+          <Routes>
+            {/* <Route index element={<Profile profilePage={props.state.profilePage}/>} /> */}
+            <Route path='/profile' element={<Profile profilePage={props.state.profilePage} />} />
+            <Route path='/dialogs/*' element={<Dialogs messagesPage={props.state.messagesPage} />} />
+            <Route path='/news/' element={(<News />)} />
+            <Route path='/music' element={<Music />} />
+            <Route path='/settings' element={<Settings />} />
+            <Route path='/*' element={<NotFound />} />
+          </Routes>
         </div>
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
 

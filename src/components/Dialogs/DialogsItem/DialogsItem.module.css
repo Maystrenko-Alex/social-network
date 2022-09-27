@@ -1,3 +1,21 @@
 .activeClass {
   color: gold;
 }
+.dialogsAva {
+  width: 25px;
+  border-radius: 50%;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+}
+.dialog {
+  display: flex;
+  justify-content: space-between;
+  width: 150px;
+  margin: 2px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.dialog a {
+  margin:auto;
+}

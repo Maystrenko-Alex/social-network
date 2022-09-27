@@ -1,37 +1,28 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { SideBarPageType } from '../redux/state';
+import { Friends } from './Friends/Friends';
 import s from './Navbar.module.css';
+import { NavItem } from './NavItem/NavItem';
 
-export const Navbar = () => {
+type NavbarPropsType = {
+  sidebar: SideBarPageType;
+}
 
+export const Navbar = (props: NavbarPropsType) => {
+ 
+  const navList = props.sidebar.navbarList.map(nl => <NavItem id={nl.id} title={nl.title} />);
+  const friendsList = props.sidebar.bestFriends.map(b => <Friends id={b.id} name={b.name} />);
+  debugger
   return (
     <nav className={s.navbar}>
-      <div className={s.item}>
-        <NavLink to='/profile' className={({ isActive }) => isActive ? s.activeClass : ''} >
-          Profile
-        </NavLink>
-      </div>
-
-      <div className={s.item}>
-        <NavLink to='/dialogs' className={({ isActive }) => isActive ? s.activeClass : ''}>
-          Message
-        </NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to='/news' className={({ isActive }) => isActive ? s.activeClass : ''}>
-          News
-        </NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to='/music' className={({ isActive }) => isActive ? s.activeClass : ''}>
-          Music
-        </NavLink>
-      </div>
-      <div className={s.item}
-      ><NavLink to='/settings' className={({ isActive }) => isActive ? s.activeClass : ''}>
-          Settings
-        </NavLink>
+      {navList}
+      <h2>{'Friends'}</h2>
+      <div className={s.friendsBlock}>
+        {friendsList}
       </div>
     </nav>
   );
 };
+
+
+
