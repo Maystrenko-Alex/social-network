@@ -8,7 +8,6 @@ type DialogItemPropsType = {
 };
 
 export const DialogItem = (props: DialogItemPropsType) => {
-  debugger
   let path = '/dialogs/' + props.id;
   let actClassNavLink = (navdata: { isActive: boolean; isPending: boolean; }) => (navdata.isActive ? s.activeClass : '');
   return (
