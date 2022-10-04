@@ -16,7 +16,6 @@ export const MyPosts = (props: MyPostPropsType) => {
     let newPostMessage: string = props.profilePage.newTextMessage;    
     if (newPostMessage.trim()) { props.addPost(newPostMessage);
     }
-    props.profilePage.newTextMessage='';
   }
   const changeValueInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     props.onChangeNewTextMessage(e.currentTarget.value)

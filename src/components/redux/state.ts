@@ -81,11 +81,11 @@ export let state: StateType = {
   }
 }
 export const addPost = (message: string) => {
-  state.profilePage.posts.push({ id: 111, message, likesCount: 0 });
+  state.profilePage.posts.push({ id: 111, message: state.profilePage.newTextMessage, likesCount: 0 });
+  state.profilePage.newTextMessage='';
   rerenderEntireTree(state);
 }
 export const onChangeNewTextMessage = (text: string) => {
   state.profilePage.newTextMessage = text;
-  console.log(state.profilePage.newTextMessage)
   rerenderEntireTree(state);
 }
