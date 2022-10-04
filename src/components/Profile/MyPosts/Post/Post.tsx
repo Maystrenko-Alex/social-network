@@ -2,14 +2,13 @@ import React from 'react';
 import s from './Post.module.css';
 
 type PostPropsType = {
-  id: number,
   message: string,
   likesCount: number
 }
 
 export const Post = (props: PostPropsType) => {
   return (
-    <div key={props.id} className={s.item}>
+    <div  className={s.item}>
       <div>
         <img
           className={s.ava}

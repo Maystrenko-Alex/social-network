@@ -1,3 +1,4 @@
+import { rerenderEntireTree } from "./render"
 
 export type PostType = {
   id: number,
@@ -22,6 +23,7 @@ export type BestFriendsType = {
 }
 
 export type ProfilePageType = {
+  newTextMessage: string
   posts: Array<PostType>
 }
 export type MessagesPageType = {
@@ -39,9 +41,9 @@ export type StateType = {
   sidebar: SideBarPageType
 }
 
-export const addPost = (message: string) => state.profilePage.posts.push({ id: 111, message, likesCount: 0 });
 export let state: StateType = {
   profilePage: {
+    newTextMessage: '',
     posts: [
       { id: 1, message: 'Hello! How are youuuu?', likesCount: 1 },
       { id: 2, message: 'Its my first post ;)', likesCount: 13 },
@@ -77,4 +79,13 @@ export let state: StateType = {
       { id: 3, name: 'Sveta' }
     ]
   }
-} 
+}
+export const addPost = (message: string) => {
+  state.profilePage.posts.push({ id: 111, message, likesCount: 0 });
+  rerenderEntireTree(state);
+}
+export const onChangeNewTextMessage = (text: string) => {
+  state.profilePage.newTextMessage = text;
+  console.log(state.profilePage.newTextMessage)
+  rerenderEntireTree(state);
+}

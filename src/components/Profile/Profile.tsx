@@ -7,14 +7,18 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 export type ProfilePropsType = {
   profilePage: ProfilePageType
   addPost: (message: string) => void
+  onChangeNewTextMessage: (text: string) => void
 }
 
 export const Profile = (props: ProfilePropsType) => {
-  
+
   return (
     <div >
       <ProfileInfo />
-      <MyPosts posts={props.profilePage.posts} addPost={props.addPost}/>
+      <MyPosts
+        profilePage={props.profilePage}
+        addPost={props.addPost}
+        onChangeNewTextMessage={props.onChangeNewTextMessage} />
     </div>
   );
 };
