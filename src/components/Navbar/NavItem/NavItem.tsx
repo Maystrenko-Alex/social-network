@@ -7,7 +7,7 @@ type NavItemPropsType = {
 }
 export const NavItem = (props: NavItemPropsType) => {
   let path = props.title === 'Messages' ? '/dialogs' : '/' + props.title.toLowerCase();
-  debugger
+  
   return (
     <div key={props.id} className={s.item}>
       <NavLink to={path} className={({ isActive }) => isActive ? s.activeClass : s.notActiveClass}>

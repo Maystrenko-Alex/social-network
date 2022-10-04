@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { state } from './components/redux/state';
+import { state, addPost } from './components/redux/state';
 import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(
@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <BrowserRouter>
-    <App state={state} />
+    <App state={state} addPost={addPost} />
   </BrowserRouter>);
 
 // If you want to start measuring performance in your app, pass a function

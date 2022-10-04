@@ -39,7 +39,8 @@ export type StateType = {
   sidebar: SideBarPageType
 }
 
-export const state: StateType = {
+export const addPost = (message: string) => state.profilePage.posts.push({ id: 111, message, likesCount: 0 });
+export let state: StateType = {
   profilePage: {
     posts: [
       { id: 1, message: 'Hello! How are youuuu?', likesCount: 1 },
@@ -63,17 +64,17 @@ export const state: StateType = {
     ]
   },
   sidebar: {
-    navbarList : [
+    navbarList: [
       { id: 1, title: 'Profile' },
       { id: 2, title: 'Messages' },
       { id: 3, title: 'News' },
       { id: 4, title: 'Music' },
       { id: 5, title: 'Settings' }
     ],
-    bestFriends : [
-      {id: 1, name: 'Andrew'},
-      {id: 2, name: 'Sasha'},
-      {id: 3, name: 'Sveta'}
+    bestFriends: [
+      { id: 1, name: 'Andrew' },
+      { id: 2, name: 'Sasha' },
+      { id: 3, name: 'Sveta' }
     ]
   }
 } 

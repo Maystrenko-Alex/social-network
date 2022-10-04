@@ -12,7 +12,7 @@ export const Navbar = (props: NavbarPropsType) => {
  
   const navList = props.sidebar.navbarList.map(nl => <NavItem id={nl.id} title={nl.title} />);
   const friendsList = props.sidebar.bestFriends.map(b => <Friends id={b.id} name={b.name} />);
-  debugger
+  
   return (
     <nav className={s.navbar}>
       {navList}

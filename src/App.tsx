@@ -13,6 +13,7 @@ import Settings from './components/Settings/Settings';
 
 type AppPropsType = {
   state: StateType
+  addPost: (message: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -23,8 +24,8 @@ function App(props: AppPropsType) {
         <Navbar sidebar={props.state.sidebar} />
         <div className='content'>
           <Routes>
-            {/* <Route index element={<Profile profilePage={props.state.profilePage}/>} /> */}
-            <Route path='/profile' element={<Profile profilePage={props.state.profilePage} />} />
+            <Route index element={<Profile profilePage={props.state.profilePage} addPost={props.addPost} />} />
+            <Route path='/profile' element={<Profile profilePage={props.state.profilePage} addPost={props.addPost} />} />
             <Route path='/dialogs/*' element={<Dialogs messagesPage={props.state.messagesPage} />} />
             <Route path='/news/' element={(<News />)} />
             <Route path='/music' element={<Music />} />

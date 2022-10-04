@@ -6,14 +6,15 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 export type ProfilePropsType = {
   profilePage: ProfilePageType
+  addPost: (message: string) => void
 }
 
 export const Profile = (props: ProfilePropsType) => {
-  debugger
+  
   return (
     <div >
       <ProfileInfo />
-      <MyPosts posts={props.profilePage.posts}/>
+      <MyPosts posts={props.profilePage.posts} addPost={props.addPost}/>
     </div>
   );
 };

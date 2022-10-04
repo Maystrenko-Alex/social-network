@@ -5,13 +5,14 @@ import { Post } from './Post/Post';
 
 export type MyPostPropsType = {
   posts: PostType[]
+  addPost: (message: string) => void
 }
 
 export const MyPosts = (props: MyPostPropsType) => {
   const postsElements = props.posts.map(p =>
     <Post id={p.id} message={p.message} likesCount={p.likesCount} />);
   const newPostElement = React.createRef<HTMLTextAreaElement>();
-  const addPost = () => alert(newPostElement.current?.value)
+  const addPost = () => newPostElement.current?.value.trim() && props.addPost(newPostElement.current.value.trim());
   return (
     <div className={s.postsBlock}>
       <h3>My posts</h3>
