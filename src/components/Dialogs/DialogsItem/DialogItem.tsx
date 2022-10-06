@@ -11,7 +11,7 @@ export const DialogItem = (props: DialogItemPropsType) => {
   let path = '/dialogs/' + props.id;
   let actClassNavLink = (navdata: { isActive: boolean; isPending: boolean; }) => (navdata.isActive ? s.activeClass : '');
   return (
-    <div key={props.id} className={s.dialog}>
+    <div className={s.dialog}>
       <div>
         <img className={s.dialogsAva}
           alt="images ava"

@@ -8,6 +8,6 @@ type MessagePropsType = {
 
 export const Message = (props: MessagePropsType) => {
   return (
-    <div key={props.id} className={s.dialog}>{props.message}</div>
+    <div className={s.dialog}>{props.message}</div>
   );
 };

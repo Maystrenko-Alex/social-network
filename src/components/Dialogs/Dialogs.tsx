@@ -3,7 +3,6 @@ import { DialogItem } from './DialogsItem/DialogItem';
 import s from './Dialogs.module.css';
 import { Message } from './Message/Message';
 import { MessagesPageType } from '../redux/state';
-import { text } from 'stream/consumers';
 
 
 type DialogsPropsType = {
@@ -11,8 +10,8 @@ type DialogsPropsType = {
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
-  const dialogsElement = props.messagesPage.dialogs.map(d => <DialogItem id={d.id} user={d.name} />);
-  const messagesElements = props.messagesPage.messages.map(m => <Message id={m.id} message={m.message} />);
+  const dialogsElement = props.messagesPage.dialogs.map(d => <DialogItem id={d.id} key={d.id} user={d.name} />);
+  const messagesElements = props.messagesPage.messages.map(m => <Message id={m.id} key={m.id}message={m.message} />);
 
   const newMessageElements = React.createRef<HTMLTextAreaElement>();
   return (

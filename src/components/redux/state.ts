@@ -1,4 +1,3 @@
-import { rerenderEntireTree } from "./render"
 
 export type PostType = {
   id: number,
@@ -81,11 +80,20 @@ export let state: StateType = {
   }
 }
 export const addPost = (message: string) => {
-  state.profilePage.posts.push({ id: 111, message: state.profilePage.newTextMessage, likesCount: 0 });
+  state.profilePage.posts.push({ id: Number(new Date().getTime()), message: state.profilePage.newTextMessage, likesCount: 0 });
   state.profilePage.newTextMessage='';
-  rerenderEntireTree(state);
+  rerenderEntireTree();
 }
 export const onChangeNewTextMessage = (text: string) => {
   state.profilePage.newTextMessage = text;
-  rerenderEntireTree(state);
+  rerenderEntireTree();
+}
+
+let rerenderEntireTree = () => {
+  console.log('State changed')
+}
+export const subscribe = (observer: () => void) => {
+  rerenderEntireTree = observer; //паттерн observer(наблюдатель)
+  console.log('State changed')
+
 }

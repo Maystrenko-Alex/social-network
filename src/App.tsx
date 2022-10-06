@@ -18,6 +18,7 @@ type AppPropsType = {
 }
 
 export function App(props: AppPropsType) {
+  debugger
   return (
     <div className="App_wrapper">
       <Header />
