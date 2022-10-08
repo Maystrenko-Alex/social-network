@@ -1,4 +1,5 @@
-
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_TEXT_POST = 'UPDATE-NEW-TEXT-POST';
 export type PostType = {
   id: number,
   message: string,
@@ -52,7 +53,7 @@ export type StoreType = {
 }
 
 type AddPostActionType = {
-  type: "ADD-POST"
+  type: 'ADD-POST'
 }
 type ChangeNewTextActionType = {
   type: "UPDATE-NEW-TEXT-POST"
@@ -180,12 +181,20 @@ export let store: StoreType = {
     this._callSubscriber();
   },
   dispatch(action) {
-    if (action.type === "ADD-POST") {
+    if (action.type === ADD_POST) {
       this._addPost();
     } else {
-      if (action.type === "UPDATE-NEW-TEXT-POST") {
+      if (action.type === UPDATE_NEW_TEXT_POST) {
         this._onChangeNewTextMessage(action.text);
       }
     }
+  }
+}
+
+export const addpostActionCreater = (): ActionsTypes => ({type: ADD_POST});
+export const changeValueInputHandlerActionCreater = (text: string): ActionsTypes => {
+  return {
+    type: UPDATE_NEW_TEXT_POST,
+    text: text
   }
 }

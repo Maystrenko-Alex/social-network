@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { ActionsTypes, ProfilePageType } from '../../redux/state';
+import { ActionsTypes, addpostActionCreater, changeValueInputHandlerActionCreater, ProfilePageType } from '../../redux/state';
 import s from './MyPosts.module.css';
 import { Post } from './Post/Post';
 
@@ -8,6 +8,7 @@ export type MyPostPropsType = {
   dispatch: (action: ActionsTypes) => void
 }
 
+
 export const MyPosts = (props: MyPostPropsType) => {
   const postsElements = props.profilePage.posts.map(p =>
     <Post key={p.id} message={p.message} likesCount={p.likesCount} />);
@@ -15,12 +16,12 @@ export const MyPosts = (props: MyPostPropsType) => {
     let newPostMessage = props.profilePage.newTextMessage;
     if (newPostMessage.trim()) {
       // let action = {type: "ADD-POST"};
-      props.dispatch({ type: "ADD-POST" });
+      props.dispatch(addpostActionCreater());
     }
-    props.dispatch({ type: 'UPDATE-NEW-TEXT-POST', text: '' })
+    props.dispatch(changeValueInputHandlerActionCreater(''))
   }
   const changeValueInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.dispatch({ type: 'UPDATE-NEW-TEXT-POST', text: e.currentTarget.value })
+    props.dispatch(changeValueInputHandlerActionCreater(e.currentTarget.value));
   }
   return (
     <div className={s.postsBlock}>
