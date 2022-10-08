@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from "./reportWebVitals";
 import './index.css';
-import { addPost, onChangeNewTextMessage, state, subscribe } from "./components/redux/state";
+import { store } from "./components/redux/state";
 
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
@@ -13,11 +13,14 @@ const root = ReactDOM.createRoot(
 const rerenderEntireTree = () => {
   root.render(
     <BrowserRouter>
-      <App state={state} addPost={addPost} onChangeNewTextMessage={onChangeNewTextMessage}/>
+      <App 
+        store={store} 
+        // dispatch={store.dispatch.bind(store)} 
+      />
     </BrowserRouter>);
 }
 rerenderEntireTree();
-subscribe(rerenderEntireTree);
+store.subscribe(rerenderEntireTree);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

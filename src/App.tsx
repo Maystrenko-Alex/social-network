@@ -8,35 +8,35 @@ import { Navbar } from './components/Navbar/Navbar';
 import News from './components/News/News';
 import NotFound from './components/NotFound/NotFound';
 import { Profile } from './components/Profile/Profile';
-import { StateType } from './components/redux/state';
+import { StateType, StoreType } from './components/redux/state';
 import Settings from './components/Settings/Settings';
 
 type AppPropsType = {
-  state: StateType
-  addPost: (message: string) => void
-  onChangeNewTextMessage: (text: string) => void
+  store: StoreType
+  // dispatch: (action: ActionsTypes) => void
 }
 
 export function App(props: AppPropsType) {
+  const state : StateType = props.store.getState()
   debugger
   return (
     <div className="App_wrapper">
       <Header />
       <div className='wrapper'>
-        <Navbar sidebar={props.state.sidebar} />
+        <Navbar sidebar={state.sidebar} />
         <div className='content'>
           <Routes>
             <Route index element={
               <Profile
-                profilePage={props.state.profilePage}
-                addPost={props.addPost}
-                onChangeNewTextMessage={props.onChangeNewTextMessage} />} />
+                profilePage={state.profilePage}
+                dispatch={props.store.dispatch.bind(props.store)}
+                />} />
             <Route path='/profile' element={
               <Profile
-                profilePage={props.state.profilePage}
-                addPost={props.addPost}
-                onChangeNewTextMessage={props.onChangeNewTextMessage} />} />
-            <Route path='/dialogs/*' element={<Dialogs messagesPage={props.state.messagesPage} />} />
+                profilePage={state.profilePage}
+                dispatch={props.store.dispatch.bind(props.store)}
+              />} />
+            <Route path='/dialogs/*' element={<Dialogs messagesPage={state.messagesPage} />} />
             <Route path='/news/' element={(<News />)} />
             <Route path='/music' element={<Music />} />
             <Route path='/settings' element={<Settings />} />
