@@ -17,8 +17,9 @@ type AppPropsType = {
 }
 
 export function App(props: AppPropsType) {
-  const state : StateType = props.store.getState()
-  debugger
+
+  const state: StateType = props.store.getState()
+
   return (
     <div className="App_wrapper">
       <Header />
@@ -30,13 +31,18 @@ export function App(props: AppPropsType) {
               <Profile
                 profilePage={state.profilePage}
                 dispatch={props.store.dispatch.bind(props.store)}
-                />} />
+              />} />
             <Route path='/profile' element={
               <Profile
                 profilePage={state.profilePage}
                 dispatch={props.store.dispatch.bind(props.store)}
               />} />
-            <Route path='/dialogs/*' element={<Dialogs messagesPage={state.messagesPage} />} />
+            <Route path='/dialogs/*' element={
+              <Dialogs
+                messagesPage={state.messagesPage}
+                dispatch={props.store.dispatch.bind(props.store)}
+              />}
+            />
             <Route path='/news/' element={(<News />)} />
             <Route path='/music' element={<Music />} />
             <Route path='/settings' element={<Settings />} />

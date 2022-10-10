@@ -1,5 +1,8 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_TEXT_POST = 'UPDATE-NEW-TEXT-POST';
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+const SEND_MESSAGE = 'SEND-MESSAGE';
+
 export type PostType = {
   id: number,
   message: string,
@@ -28,7 +31,8 @@ export type ProfilePageType = {
 }
 export type MessagesPageType = {
   dialogs: Array<DialogType>,
-  messages: Array<MessageType>
+  messages: Array<MessageType>,
+  newMessageBody: string
 }
 export type SideBarPageType = {
   navbarList: Array<NavbarListType>
@@ -59,7 +63,14 @@ type ChangeNewTextActionType = {
   type: "UPDATE-NEW-TEXT-POST"
   text: string
 }
-export type ActionsTypes = AddPostActionType | ChangeNewTextActionType;
+type UpdateNewMessageBodyActionType = {
+  type: 'UPDATE-NEW-MESSAGE-BODY',
+  text: string
+}
+type SendMessageActionType = {
+  type: 'SEND-MESSAGE'
+}
+export type ActionsTypes = AddPostActionType | ChangeNewTextActionType | UpdateNewMessageBodyActionType | SendMessageActionType;
 
 // export let state: StateType = {
 //   profilePage: {
@@ -140,7 +151,8 @@ export let store: StoreType = {
         { id: 1, message: 'Hi' },
         { id: 2, message: 'How are you?' },
         { id: 3, message: 'Yooo' }
-      ]
+      ],
+      newMessageBody: '',
     },
     sidebar: {
       navbarList: [
@@ -183,18 +195,30 @@ export let store: StoreType = {
   dispatch(action) {
     if (action.type === ADD_POST) {
       this._addPost();
-    } else {
+    } else
       if (action.type === UPDATE_NEW_TEXT_POST) {
         this._onChangeNewTextMessage(action.text);
-      }
-    }
+      } else
+        if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+          this._state.messagesPage.newMessageBody = action.text;
+          this._callSubscriber();
+        } else 
+        if (action.type === SEND_MESSAGE) {
+
+          this._state.messagesPage.messages.push({id: Number(new Date().getTime()), message: this._state.messagesPage.newMessageBody});
+          this._state.messagesPage.newMessageBody = '';
+          this._callSubscriber();
+        }
   }
 }
 
-export const addpostActionCreater = (): ActionsTypes => ({type: ADD_POST});
+
+export const addpostActionCreater = (): ActionsTypes => ({ type: ADD_POST });
 export const changeValueInputHandlerActionCreater = (text: string): ActionsTypes => {
   return {
     type: UPDATE_NEW_TEXT_POST,
     text: text
   }
 }
+export const sendMessageActionCreater = (): ActionsTypes => ({ type: SEND_MESSAGE});
+export const updateNewMessageBodyActionCreater = (text: string): ActionsTypes => ({ type: UPDATE_NEW_MESSAGE_BODY, text});
