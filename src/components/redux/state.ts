@@ -1,10 +1,7 @@
 import { dialogsReducer } from './dialogs-reducer';
 import { profileReducer } from './profile-reducer';
 import { sidebarReducer } from './sidebar-reducer';
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_TEXT_POST = 'UPDATE-NEW-TEXT-POST';
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
-const SEND_MESSAGE = 'SEND-MESSAGE';
+
 
 export type PostType = {
   id: number,
@@ -145,7 +142,7 @@ export let store: StoreType = {
     this._state.sidebar = sidebarReducer(this._state.sidebar, action)
 
     this._callSubscriber();
-    
+
     // if (action.type === ADD_POST) {
     //   this._addPost();
     // } else
@@ -166,12 +163,12 @@ export let store: StoreType = {
 }
 
 
-export const addpostActionCreater = (): ActionsTypes => ({ type: ADD_POST });
-export const changeValueInputHandlerActionCreater = (text: string): ActionsTypes => {
-  return {
-    type: UPDATE_NEW_TEXT_POST,
-    text: text
-  }
-}
-export const sendMessageActionCreater = (): ActionsTypes => ({ type: SEND_MESSAGE});
-export const updateNewMessageBodyActionCreater = (text: string): ActionsTypes => ({ type: UPDATE_NEW_MESSAGE_BODY, text});
+// export const addpostActionCreater = (): ActionsTypes => ({ type: ADD_POST });
+// export const changeValueInputHandlerActionCreater = (text: string): ActionsTypes => {
+//   return {
+//     type: UPDATE_NEW_TEXT_POST,
+//     text: text
+//   }
+// }
+// export const sendMessageActionCreater = (): ActionsTypes => ({ type: SEND_MESSAGE});
+// export const updateNewMessageBodyActionCreater = (text: string): ActionsTypes => ({ type: UPDATE_NEW_MESSAGE_BODY, text});

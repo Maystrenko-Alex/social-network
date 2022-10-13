@@ -15,3 +15,6 @@ export const dialogsReducer = (state: MessagesPageType, action: ActionsTypes): M
       return state;
   }
 }
+
+export const sendMessageActionCreater = (): ActionsTypes => ({ type: SEND_MESSAGE});
+export const updateNewMessageBodyActionCreater = (text: string): ActionsTypes => ({ type: UPDATE_NEW_MESSAGE_BODY, text});

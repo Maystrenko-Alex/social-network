@@ -19,3 +19,11 @@ export const profileReducer = (state: ProfilePageType, action: ActionsTypes) => 
       return state;
   }
 }
+
+export const addpostActionCreater = (): ActionsTypes => ({ type: ADD_POST });
+export const changeValueInputHandlerActionCreater = (text: string): ActionsTypes => {
+  return {
+    type: UPDATE_NEW_TEXT_POST,
+    text: text
+  }
+}
