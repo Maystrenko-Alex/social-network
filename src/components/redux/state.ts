@@ -1,3 +1,6 @@
+import { dialogsReducer } from './dialogs-reducer';
+import { profileReducer } from './profile-reducer';
+import { sidebarReducer } from './sidebar-reducer';
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_TEXT_POST = 'UPDATE-NEW-TEXT-POST';
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
@@ -72,62 +75,6 @@ type SendMessageActionType = {
 }
 export type ActionsTypes = AddPostActionType | ChangeNewTextActionType | UpdateNewMessageBodyActionType | SendMessageActionType;
 
-// export let state: StateType = {
-//   profilePage: {
-//     newTextMessage: '',
-//     posts: [
-//       { id: 1, message: 'Hello! How are youuuu?', likesCount: 1 },
-//       { id: 2, message: 'Its my first post ;)', likesCount: 13 },
-//       { id: 3, message: 'yoo', likesCount: 4 },
-//     ]
-//   },
-//   messagesPage: {
-//     dialogs: [
-//       { id: 1, name: 'Dimych' },
-//       { id: 2, name: 'Andrew' },
-//       { id: 3, name: 'Sveta' },
-//       { id: 4, name: 'Sasha' },
-//       { id: 5, name: 'Viktor' },
-//       { id: 6, name: 'Valera' }
-//     ],
-//     messages: [
-//       { id: 1, message: 'Hi' },
-//       { id: 2, message: 'How are you?' },
-//       { id: 3, message: 'Yooo' }
-//     ]
-//   },
-//   sidebar: {
-//     navbarList: [
-//       { id: 1, title: 'Profile' },
-//       { id: 2, title: 'Messages' },
-//       { id: 3, title: 'News' },
-//       { id: 4, title: 'Music' },
-//       { id: 5, title: 'Settings' }
-//     ],
-//     bestFriends: [
-//       { id: 1, name: 'Andrew' },
-//       { id: 2, name: 'Sasha' },
-//       { id: 3, name: 'Sveta' }
-//     ]
-//   }
-// }
-
-// export const addPost = (message: string) => {
-//   state.profilePage.posts.push({ id: Number(new Date().getTime()), message: state.profilePage.newTextMessage, likesCount: 0 });
-//   state.profilePage.newTextMessage = '';
-//   rerenderEntireTree();
-// }
-// export const onChangeNewTextMessage = (text: string) => {
-//   state.profilePage.newTextMessage = text;
-//   rerenderEntireTree();
-// }
-
-// let rerenderEntireTree = () => {
-// }
-// export const subscribe = (observer: () => void) => {
-//   rerenderEntireTree = observer; //паттерн observer(наблюдатель)
-// }
-
 export let store: StoreType = {
   _state: {
     profilePage: {
@@ -179,7 +126,6 @@ export let store: StoreType = {
     this._callSubscriber = observer; //паттерн observer(наблюдатель)
   },
   _addPost() {
-    debugger
     this._state.profilePage.posts.push({
       id: Number(new Date().getTime()),
       message: this._state.profilePage.newTextMessage,
@@ -193,22 +139,29 @@ export let store: StoreType = {
     this._callSubscriber();
   },
   dispatch(action) {
-    if (action.type === ADD_POST) {
-      this._addPost();
-    } else
-      if (action.type === UPDATE_NEW_TEXT_POST) {
-        this._onChangeNewTextMessage(action.text);
-      } else
-        if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-          this._state.messagesPage.newMessageBody = action.text;
-          this._callSubscriber();
-        } else 
-        if (action.type === SEND_MESSAGE) {
 
-          this._state.messagesPage.messages.push({id: Number(new Date().getTime()), message: this._state.messagesPage.newMessageBody});
-          this._state.messagesPage.newMessageBody = '';
-          this._callSubscriber();
-        }
+    this._state.profilePage = profileReducer(this._state.profilePage, action)
+    this._state.messagesPage = dialogsReducer(this._state.messagesPage, action)
+    this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
+    this._callSubscriber();
+    
+    // if (action.type === ADD_POST) {
+    //   this._addPost();
+    // } else
+    //   if (action.type === UPDATE_NEW_TEXT_POST) {
+    //     this._onChangeNewTextMessage(action.text);
+    //   } else
+        // if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+        //   this._state.messagesPage.newMessageBody = action.text;
+        //   this._callSubscriber();
+        // } else 
+        // if (action.type === SEND_MESSAGE) {
+
+        //   this._state.messagesPage.messages.push({id: Number(new Date().getTime()), message: this._state.messagesPage.newMessageBody});
+        //   this._state.messagesPage.newMessageBody = '';
+        //   this._callSubscriber();
+        // }
   }
 }
 
