@@ -2,8 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { DialogItem } from './DialogsItem/DialogItem';
 import s from './Dialogs.module.css';
 import { Message } from './Message/Message';
-import { ActionsTypes, MessagesPageType} from '../redux/state';
-import { updateNewMessageBodyActionCreater, sendMessageActionCreater } from '../redux/dialogs-reducer';
+import { updateNewMessageBodyActionCreater, sendMessageActionCreater, ActionsTypes, MessagesPageType } from '../redux/dialogs-reducer';
 
 
 type DialogsPropsType = {
