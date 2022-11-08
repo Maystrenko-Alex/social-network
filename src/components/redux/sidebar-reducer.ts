@@ -13,7 +13,7 @@ export type SideBarPageType = {
 }
 
 export type ActionsTypes = {
-type: 'EMPTY_TYPE'
+
 }
 
 let initialState = {
@@ -32,8 +32,6 @@ let initialState = {
 };
 
 export const sideBarReducer = (state: SideBarPageType = initialState, action: ActionsTypes) => {
-  switch (action.type){
-    default:
-      return state
-  }
+  
+  return state
 }

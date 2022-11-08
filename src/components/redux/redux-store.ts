@@ -4,7 +4,6 @@ import { dialogsReducer, MessagesPageType } from "./dialogs-reducer";
 import { ProfilePageType, profileReducer } from "./profile-reducer";
 import { SideBarPageType, sideBarReducer } from './sidebar-reducer';
 
-
 let reducers = combineReducers({
   profilePage: profileReducer,
   messagesPage: dialogsReducer,

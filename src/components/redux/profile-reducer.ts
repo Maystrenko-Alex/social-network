@@ -1,15 +1,15 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_TEXT_POST = 'UPDATE-NEW-TEXT-POST';
 
-type PostType = {
+export type PostType = {
   id: number
   message: string
   likesCount: number
 }
-type AddPostActionType = {
+export type AddPostActionType = {
   type: 'ADD-POST'
 }
-type ChangeNewTextActionType = {
+export type ChangeNewTextActionType = {
   type: "UPDATE-NEW-TEXT-POST"
   text: string
 }
@@ -17,7 +17,7 @@ export type ProfilePageType = {
   newTextMessage: string
   posts: Array<PostType>
 }
-export type ActionsTypes = AddPostActionType | ChangeNewTextActionType;
+type ActionsTypes = AddPostActionType | ChangeNewTextActionType;
 
 let initialState = {
   newTextMessage: '',

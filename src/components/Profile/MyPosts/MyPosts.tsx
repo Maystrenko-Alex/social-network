@@ -1,29 +1,32 @@
 import React, { ChangeEvent } from 'react';
-import { ActionsTypes, addpostActionCreater, changeValueInputHandlerActionCreater, ProfilePageType } from '../../redux/profile-reducer';
+import { PostType } from '../../redux/profile-reducer';
 import s from './MyPosts.module.css';
 import { Post } from './Post/Post';
 
+
+
 export type MyPostPropsType = {
-  profilePage: ProfilePageType
-  dispatch: (action: ActionsTypes) => void
+  posts: PostType[]
+  newTextMessage: string
+  addPost: () => void
+  changeValueInput: (value: string) => void
 }
 
-
-export const MyPosts = (props: MyPostPropsType) => {
-  const postsElements = props.profilePage.posts.map(p =>
+const MyPosts = (props: MyPostPropsType) => {
+  const postsElements = props.posts.map(p =>
     <Post key={p.id} message={p.message} likesCount={p.likesCount} />);
 
   const addPost = () => {
-    let newPostMessage = props.profilePage.newTextMessage;
-    if (newPostMessage.trim()) {
+    // let newPostMessage = props.profilePage.newTextMessage;
+    if (props.newTextMessage.trim()) {
       // let action = {type: "ADD-POST"};
-      props.dispatch(addpostActionCreater());
+      props.addPost();
     }
-    props.dispatch(changeValueInputHandlerActionCreater(''))
+    props.changeValueInput('')
   }
 
   const changeValueInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.dispatch(changeValueInputHandlerActionCreater(e.currentTarget.value));
+    props.changeValueInput(e.currentTarget.value);
   }
   
   return (
@@ -32,7 +35,7 @@ export const MyPosts = (props: MyPostPropsType) => {
       <div>
         <div>
           <textarea
-            value={props.profilePage.newTextMessage}
+            value={props.newTextMessage}
             onChange={changeValueInputHandler}
             placeholder='Enter message...' style={{ borderRadius: '5px' }}></textarea>
         </div>

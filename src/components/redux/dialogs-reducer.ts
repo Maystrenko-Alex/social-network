@@ -23,7 +23,7 @@ type UpdateNewMessageBodyActionType = {
 type SendMessageActionType = {
   type: 'SEND-MESSAGE'
 }
-export type ActionsTypes =  UpdateNewMessageBodyActionType | SendMessageActionType;
+type ActionsTypes =  UpdateNewMessageBodyActionType | SendMessageActionType;
 
 let initialState = {
   dialogs: [
