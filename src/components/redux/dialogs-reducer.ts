@@ -1,5 +1,6 @@
+import { ActionTypes } from "./store";
 
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+const UPDATE_NEW_TEXT_MESSAGE = 'UPDATE-NEW-TEXT-MESSAGE';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
 
@@ -14,16 +15,16 @@ export type MessageType = {
 export type MessagesPageType = {
   dialogs: Array<DialogType>,
   messages: Array<MessageType>,
-  newMessageBody: string
+  newTextMessage: string
 }
-type UpdateNewMessageBodyActionType = {
-  type: 'UPDATE-NEW-MESSAGE-BODY',
+export type UpdateNewTextMessageAT = {
+  type: 'UPDATE-NEW-TEXT-MESSAGE',
   text: string
 }
-type SendMessageActionType = {
+export type SendMessageAT = {
   type: 'SEND-MESSAGE'
 }
-type ActionsTypes =  UpdateNewMessageBodyActionType | SendMessageActionType;
+//  type ActionTypes =  UpdateNewTextMessageAT | SendMessageAT;
 
 let initialState = {
   dialogs: [
@@ -39,22 +40,22 @@ let initialState = {
     { id: 2, message: 'How are you?' },
     { id: 3, message: 'Yooo' }
   ],
-  newMessageBody: '',
+  newTextMessage: '',
 };
 
-export const dialogsReducer = (state: MessagesPageType = initialState, action: ActionsTypes): MessagesPageType => {
+export const dialogsReducer = (state: MessagesPageType = initialState, action: ActionTypes): MessagesPageType => {
   switch (action.type) {
-    case UPDATE_NEW_MESSAGE_BODY:
-      state.newMessageBody = action.text;
+    case UPDATE_NEW_TEXT_MESSAGE:
+      state.newTextMessage = action.text;
       return state;
     case SEND_MESSAGE:
-      state.messages.push({ id: Number(new Date().getTime()), message: state.newMessageBody });
-      state.newMessageBody = '';
+      state.messages.push({ id: Number(new Date().getTime()), message: state.newTextMessage });
+      state.newTextMessage = '';
       return state;
     default:
       return state;
   }
 }
 
-export const sendMessageActionCreater = (): ActionsTypes => ({ type: SEND_MESSAGE});
-export const updateNewMessageBodyActionCreater = (text: string): ActionsTypes => ({ type: UPDATE_NEW_MESSAGE_BODY, text});
+export const sendMessageAC = (): SendMessageAT => ({ type: SEND_MESSAGE});
+export const updateNewTextMessageAC = (text: string): UpdateNewTextMessageAT => ({ type: UPDATE_NEW_TEXT_MESSAGE, text});

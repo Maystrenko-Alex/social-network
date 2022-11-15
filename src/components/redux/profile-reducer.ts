@@ -1,3 +1,6 @@
+import { ActionTypes } from "./store";
+
+
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_TEXT_POST = 'UPDATE-NEW-TEXT-POST';
 
@@ -6,21 +9,21 @@ export type PostType = {
   message: string
   likesCount: number
 }
-export type AddPostActionType = {
+export type AddPostAT = {
   type: 'ADD-POST'
 }
-export type ChangeNewTextActionType = {
+export type UpdateNewTextPostAT = {
   type: "UPDATE-NEW-TEXT-POST"
   text: string
 }
 export type ProfilePageType = {
-  newTextMessage: string
+  newTextPost: string
   posts: Array<PostType>
 }
-type ActionsTypes = AddPostActionType | ChangeNewTextActionType;
+// type ActionTypes = AddPostAT | UpdateNewTextPostAT;
 
 let initialState = {
-  newTextMessage: '',
+  newTextPost: '',
   posts: [
     { id: 1, message: 'Hello! How are youuuu?', likesCount: 1 },
     { id: 2, message: 'Its my first post ;)', likesCount: 13 },
@@ -28,26 +31,26 @@ let initialState = {
   ]
 };
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes): ProfilePageType => {
   switch (action.type) {
     case ADD_POST:
       state.posts.push({
-        id: Number(new Date().getTime()),
-        message: state.newTextMessage,
+        id: new Date().getTime(),
+        message: state.newTextPost,
         likesCount: 0
       });
-      state.newTextMessage = '';
+      state.newTextPost = '';
       return state;
     case UPDATE_NEW_TEXT_POST:
-      state.newTextMessage = action.text;
+      state.newTextPost = action.text;
       return state;
     default:
       return state;
   }
 }
  
-export const addpostActionCreater = (): ActionsTypes => ({ type: ADD_POST });
-export const changeValueInputHandlerActionCreater = (text: string): ActionsTypes => {
+export const addPostAC = (): AddPostAT => ({ type: ADD_POST });
+export const updateNewTextPostAC = (text: string): UpdateNewTextPostAT => {
   return {
     type: UPDATE_NEW_TEXT_POST,
     text: text

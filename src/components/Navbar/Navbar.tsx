@@ -9,10 +9,10 @@ type NavbarPropsType = {
 }
 
 export const Navbar = (props: NavbarPropsType) => {
- debugger
+
   const navList = props.sidebar.navbarList.map(nl => <NavItem key={nl.id} title={nl.title} />);
   const friendsList = props.sidebar.bestFriends.map(b => <Friends key={b.id} name={b.name} />);
-  debugger
+
   return (
     <nav className={s.navbar}>
       {navList}
