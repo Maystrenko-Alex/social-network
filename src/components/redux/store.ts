@@ -30,8 +30,8 @@ export type StateType = {
 export type StoreType = {
   _state: StateType,
   _callSubscriber: () => void,
-  _addPost: () => void,
-  _onChangeNewTextMessage: (text: string) => void,
+  // _addPost: () => void,
+  // _onChangeNewTextMessage: (text: string) => void,
   getState: () => StateType,
   subscribe: (callBack: () => void) => void,
   dispatch: (action: ActionTypes) => void

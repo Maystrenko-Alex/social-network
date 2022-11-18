@@ -5,13 +5,14 @@ import { ProfilePageType, profileReducer } from "./profile-reducer";
 import { SideBarPageType, sidebarReducer } from './sidebar-reducer';
 
 
-let reducers = combineReducers({
+let rootReducer = combineReducers({
   profilePage: profileReducer,
   messagesPage: dialogsReducer,
   sidebarPage: sidebarReducer
 })
 
-let store = createStore(reducers);
+let store = createStore(rootReducer);
+
 
 export type AppRootStateType = {
   profilePage: ProfilePageType
@@ -24,4 +25,4 @@ export type AppRootStateType = {
 export default store;
 
 // @ts-ignore
-window.store = store;
+// window.store = store;
