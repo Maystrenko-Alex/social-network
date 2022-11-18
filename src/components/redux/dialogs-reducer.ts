@@ -44,18 +44,20 @@ let initialState = {
 };
 
 export const dialogsReducer = (state: MessagesPageType = initialState, action: ActionTypes): MessagesPageType => {
+
   switch (action.type) {
     case UPDATE_NEW_TEXT_MESSAGE:
-      state.newTextMessage = action.text;
-      return state;
+      return { ...state, newTextMessage: action.text };
     case SEND_MESSAGE:
-      state.messages.push({ id: Number(new Date().getTime()), message: state.newTextMessage });
-      state.newTextMessage = '';
-      return state;
+      return {
+        ...state,
+        messages: [...state.messages, { id: Number(new Date().getTime()), message: state.newTextMessage }],
+        newTextMessage: ''
+      };
     default:
       return state;
   }
 }
 
-export const sendMessageAC = (): SendMessageAT => ({ type: SEND_MESSAGE});
-export const updateNewTextMessageAC = (text: string): UpdateNewTextMessageAT => ({ type: UPDATE_NEW_TEXT_MESSAGE, text});
+export const sendMessageAC = (): SendMessageAT => ({ type: SEND_MESSAGE });
+export const updateNewTextMessageAC = (text: string): UpdateNewTextMessageAT => ({ type: UPDATE_NEW_TEXT_MESSAGE, text });

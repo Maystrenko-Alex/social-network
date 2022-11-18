@@ -25,4 +25,4 @@ export type AppRootStateType = {
 export default store;
 
 // @ts-ignore
-// window.store = store;
+window.store = store;

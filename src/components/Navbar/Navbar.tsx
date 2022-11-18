@@ -33,8 +33,8 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     sidebarPage: state.sidebarPage
   }
 }
-type mapDispatchToProps = {
+// type mapDispatchToProps = {
 
-}
+// }
 export const NavbarContainer = connect(mapStateToProps)(Navbar);
 
