@@ -8,6 +8,7 @@ import News from './components/News/News';
 import NotFound from './components/NotFound/NotFound';
 import { Profile } from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
+import { UsersContainer } from './components/Users/UsersContainer';
 
 
 type AppPropsType = {
@@ -26,7 +27,8 @@ export function App(props: AppPropsType) {
             <Route index element={<Profile />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/dialogs/*' element={<DialogsContainer />} />
-            <Route path='/news/' element={(<News />)} />
+            <Route path='/users' element={<UsersContainer />} />
+            <Route path='/news/' element={<News />} />
             <Route path='/music' element={<Music />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/*' element={<NotFound />} />

@@ -1,4 +1,5 @@
-import { ActionTypes } from "./store";
+import { AllActionTypes } from "./redux-store";
+
 
 
 const ADD_POST = 'ADD-POST';
@@ -20,7 +21,7 @@ export type ProfilePageType = {
   newTextPost: string
   posts: Array<PostType>
 }
-// type ActionTypes = AddPostAT | UpdateNewTextPostAT;
+// export type ProfileActionTypes = AddPostAT | UpdateNewTextPostAT;
 
 let initialState = {
   newTextPost: '',
@@ -31,7 +32,7 @@ let initialState = {
   ]
 };
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes): ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialState, action: AllActionTypes): ProfilePageType => {
   switch (action.type) {
     case ADD_POST:
       return {
