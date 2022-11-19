@@ -4,7 +4,7 @@ export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';
 export const SET_USERS = 'SET-USERS'
 
-type ActionTypes = FollowAT | UnfollowAT | SetUsersAT
+
 export type FollowAT = {
   type: 'FOLLOW'
   userID: number
@@ -43,9 +43,15 @@ let initialState: UsersType = {
 export const usersReducer = (state: UsersType = initialState, action: AllActionTypes): UsersType => {
   switch (action.type) {
     case FOLLOW:
-      return { ...state, users: state.users.map(u => u.id !== action.userID ? u : ({ ...u, followed: true })) }
+      return {
+        ...state, users: state.users.map(u => u.id !== action.userID
+          ? u
+          : { id: u.id, photoUrl: u.photoUrl, followed: true, fullName: u.fullName, status: u.status, location: { city: u.location.city, country: u.location.country } }
+        )
+      }
+    // : { ...u, followed: true })
     case UNFOLLOW:
-      return { ...state, users: state.users.map(u => u.id !== action.userID ? u : ({ ...u, followed: false })) } 
+      return { ...state, users: state.users.map(u => u.id !== action.userID ? u : ({ ...u, followed: false })) }
     case SET_USERS:
       return { ...state, users: [...state.users, ...action.users] }
     default:
