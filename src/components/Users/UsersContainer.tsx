@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { AppRootStateType } from '../redux/redux-store';
 import { followAC, setUsersAC, unfollowAC, UserType } from '../redux/users-reducer';
+import axios from 'axios';
+import default_images_user_photo_small from './../../assets/images/default_images_user_photo_small.png';
 
 type UsersPropsType = {
   users: UserType[]
@@ -13,12 +15,15 @@ type UsersPropsType = {
 
 const Users = (props: UsersPropsType) => {
   if (props.users.length === 0) {
-    props.setUsers([
-      { id: 1, photoUrl: 'https://i.pinimg.com/236x/e9/57/2a/e9572a70726980ed5445c02e1058760b.jpg', followed: false, fullName: 'Dmitry', status: 'I am a Boss', location: { city: 'Minsk', country: 'Belarus' } },
-      { id: 2, photoUrl: 'https://e00-marca.uecdn.es/assets/multimedia/imagenes/2020/06/04/15912219730543.jpg', followed: false, fullName: 'Alex', status: ':)', location: { city: 'Moscow', country: 'Russia' } },
-      { id: 3, photoUrl: 'https://i0.wp.com/nofiredrills.com/wp-content/uploads/2016/10/myavatar.png?fit=400%2C400&ssl=1', followed: true, fullName: 'Sveta', status: '', location: { city: 'Kiev', country: 'Ukrian' } },
-      { id: 4, photoUrl: 'https://cdn-icons-png.flaticon.com/512/183/183753.png', followed: false, fullName: 'Evgen', status: '------> !', location: { city: 'Berlin', country: 'Germany' } }
-    ])
+    axios.get(' https://social-network.samuraijs.com/api/1.0/users').then(response => {
+      props.setUsers(response.data.items)
+    })
+    // props.setUsers([
+    //   { id: 1, photoUrl: 'https://i.pinimg.com/236x/e9/57/2a/e9572a70726980ed5445c02e1058760b.jpg', followed: false, fullName: 'Dmitry', status: 'I am a Boss', location: { city: 'Minsk', country: 'Belarus' } },
+    //   { id: 2, photoUrl: 'https://e00-marca.uecdn.es/assets/multimedia/imagenes/2020/06/04/15912219730543.jpg', followed: false, fullName: 'Alex', status: ':)', location: { city: 'Moscow', country: 'Russia' } },
+    //   { id: 3, photoUrl: 'https://i0.wp.com/nofiredrills.com/wp-content/uploads/2016/10/myavatar.png?fit=400%2C400&ssl=1', followed: true, fullName: 'Sveta', status: '', location: { city: 'Kiev', country: 'Ukrian' } },
+    //   { id: 4, photoUrl: 'https://cdn-icons-png.flaticon.com/512/183/183753.png', followed: false, fullName: 'Evgen', status: '------> !', location: { city: 'Berlin', country: 'Germany' } }
+    // ])
   }
 
   return (
@@ -29,7 +34,12 @@ const Users = (props: UsersPropsType) => {
             <div key={user.id} className={s.wrapperUser}>
               <span className={s.ava_btn}>
                 <div>
-                  <img className={s.imageAva} style={{ width: '70px', height: '70px' }} src={user.photoUrl} alt='img' />
+                  <img 
+                    className={s.imageAva} 
+                    style={{ width: '70px', height: '70px' }} 
+                    src={user.photos.small != null ? user.photos.small : default_images_user_photo_small} 
+                    alt='img' 
+                  />
                 </div>
                 <div className={s.userButton}>
                   {/* {<button onClick={()=>props.followUser(user.id)}>{user.followed ? 'Unfollow' : 'Follow'}</button>} */}
@@ -42,12 +52,12 @@ const Users = (props: UsersPropsType) => {
               </span>
               <span className={s.userInfo}>
                 <span>
-                  <div className={s.userName}>{user.fullName}</div>
-                  <div>{user.status}</div>
+                  <div className={s.userName}>{user.name}</div>
+                  <div className={s.userStatus}>{user.status}</div>
                 </span>
-                <span>
-                  <div>{user.location.country}</div>
-                  <div>{user.location.city}</div>
+                <span className={s.locationUser}>
+                  <div>{'user.location.country'}</div>
+                  <div>{'user.location.city'}</div>
                 </span>
               </span>
             </div>

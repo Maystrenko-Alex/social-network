@@ -17,15 +17,19 @@ export type SetUsersAT = {
   type: 'SET-USERS'
   users: Array<UserType>
 }
+type UserFotoType = {
+  small: string
+  large: string
+}
 type LocationUserType = {
   city: string
   country: string
 }
 export type UserType = {
   id: number
-  photoUrl: string
+  photos: UserFotoType
   followed: boolean
-  fullName: string
+  name: string
   status: string
   location: LocationUserType
 }
@@ -46,7 +50,7 @@ export const usersReducer = (state: UsersType = initialState, action: AllActionT
       return {
         ...state, users: state.users.map(u => u.id !== action.userID
           ? u
-          : { id: u.id, photoUrl: u.photoUrl, followed: true, fullName: u.fullName, status: u.status, location: { city: u.location.city, country: u.location.country } }
+          : { id: u.id, photos: u.photos, followed: true, name: u.name, status: u.status, location: { city: u.location.city, country: u.location.country } }
         )
       }
     // : { ...u, followed: true })

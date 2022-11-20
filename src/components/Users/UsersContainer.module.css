@@ -1,8 +1,9 @@
 .wrapperUser {
   display: flex;
   flex-direction: row;
-  min-width: 30%;
-  max-width: 40%;
+  /* justify-content: center; */
+  min-width: 10%;
+  max-width: 30%;
   margin: 20px;
   border: 2px solid black;
   border-radius: 5px;
@@ -29,6 +30,9 @@ border-radius: 50%;
 }
 .userInfo {
   /* display: flex; */
- 
- 
+}
+.locationUser{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
