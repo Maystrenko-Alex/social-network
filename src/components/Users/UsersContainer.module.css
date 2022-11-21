@@ -28,9 +28,8 @@ border-radius: 50%;
   font-style: italic;
   font-size: 18px;
 }
-.userInfo {
-  /* display: flex; */
-}
+/* .userInfo {} */
+
 .locationUser{
   display: flex;
   flex-direction: row;

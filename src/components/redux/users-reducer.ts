@@ -50,10 +50,10 @@ export const usersReducer = (state: UsersType = initialState, action: AllActionT
       return {
         ...state, users: state.users.map(u => u.id !== action.userID
           ? u
-          : { id: u.id, photos: u.photos, followed: true, name: u.name, status: u.status, location: { city: u.location.city, country: u.location.country } }
+          // : { id: u.id, photos: u.photos, followed: true, name: u.name, status: u.status, location: { city: u.location.city, country: u.location.country } }
+          : { ...u, followed: true }
         )
       }
-    // : { ...u, followed: true })
     case UNFOLLOW:
       return { ...state, users: state.users.map(u => u.id !== action.userID ? u : ({ ...u, followed: false })) }
     case SET_USERS:
