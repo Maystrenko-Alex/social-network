@@ -22,9 +22,10 @@ let initialState = {
   navbarList: [
     { id: 1, title: 'Profile' },
     { id: 2, title: 'Messages' },
-    { id: 3, title: 'News' },
-    { id: 4, title: 'Music' },
-    { id: 5, title: 'Settings' }
+    { id: 3, title: 'Users' },
+    { id: 4, title: 'News' },
+    { id: 5, title: 'Music' },
+    { id: 6, title: 'Settings' }
   ],
   bestFriends: [
     { id: 1, name: 'Andrew' },
