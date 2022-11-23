@@ -3,6 +3,7 @@ import { UserType } from "../redux/users-reducer";
 import s from './UsersContainer.module.css';
 import default_images_user_photo_small from './../../assets/images/default_images_user_photo_small.png';
 import React from "react";
+import { v1 } from "uuid";
 
 
 type UserPropsType = {
@@ -14,6 +15,7 @@ type UserPropsType = {
   followUser: (id: number) => void
   setUsers: (nextUsers: UserType[]) => void
   setCurrentPage: (num: number) => void
+  setTotlaUsersCount: (num: number) => void
 }
 
 class Users extends React.Component<UserPropsType> {
@@ -29,7 +31,7 @@ class Users extends React.Component<UserPropsType> {
     // if (this.props.users.length === 0) {
       axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
         this.props.setUsers(response.data.items)
-        this.props.setUsers(response.data.totalCount)
+        this.props.setTotlaUsersCount(response.data.totalCount)
       })
     // }
   }
@@ -49,7 +51,7 @@ class Users extends React.Component<UserPropsType> {
     }
     let pagesItem = pages.map(p => {
       return (
-        <span className={this.props.currentPage === p ? s.selectedPages : ''} onClick={()=>this.onPageChanged(p)}>{p}</span>
+        <span key={v1()} className={this.props.currentPage === p ? s.selectedPages : ''} onClick={()=>this.onPageChanged(p)}>{p}</span>
       )
     })
     return (
@@ -58,41 +60,43 @@ class Users extends React.Component<UserPropsType> {
           {pagesItem}
         </div>
         {/* <button onClick={this.getUsers}>GET USERS</button> */}
-        {
-          this.props.users.map(user => {
-            return (
-              <div key={user.id} className={s.wrapperUser}>
-                <span className={s.ava_btn}>
-                  <div>
-                    <img
-                      className={s.imageAva}
-                      style={{ width: '70px', height: '70px' }}
-                      src={user.photos.small != null ? user.photos.small : default_images_user_photo_small}
-                      alt='img'
-                    />
-                  </div>
-                  <div className={s.userButton}>
-                    {/* {<button onClick={()=>props.followUser(user.id)}>{user.followed ? 'Unfollow' : 'Follow'}</button>} */}
-                    {
-                      user.followed
-                        ? <button onClick={() => this.props.unfollowUser(user.id)}>Unfollow</button>
-                        : <button onClick={() => this.props.followUser(user.id)}>Follow</button>
-                    }
-                  </div>
-                </span>
-                <span className={s.userInfo}>
-                  <span>
-                    <div className={s.userName}>{user.name}</div>
-                    <div className={s.userStatus}>{user.status}</div>
+        <div className={s.usersContainer}>
+          {
+            this.props.users.map(user => {
+              return (
+                <div key={user.id} className={s.wrapperUser}>
+                  <span className={s.ava_btn}>
+                    <div>
+                      <img
+                        className={s.imageAva}
+                        style={{ width: '70px', height: '70px' }}
+                        src={user.photos.small != null ? user.photos.small : default_images_user_photo_small}
+                        alt='img'
+                      />
+                    </div>
+                    <div className={s.userButton}>
+                      {/* {<button onClick={()=>props.followUser(user.id)}>{user.followed ? 'Unfollow' : 'Follow'}</button>} */}
+                      {
+                        user.followed
+                          ? <button onClick={() => this.props.unfollowUser(user.id)}>Unfollow</button>
+                          : <button onClick={() => this.props.followUser(user.id)}>Follow</button>
+                      }
+                    </div>
                   </span>
-                  <span className={s.locationUser}>
-                    <div>{'user.location.country'}</div>
-                    <div>{'user.location.city'}</div>
+                  <span className={s.userInfo}>
+                    <span>
+                      <div className={s.userName}>{user.name}</div>
+                      <div className={s.userStatus}>{user.status}</div>
+                    </span>
+                    <span className={s.locationUser}>
+                      <div>{'user.location.country'}</div>
+                      <div>{'user.location.city'}</div>
+                    </span>
                   </span>
-                </span>
-              </div>
-            )
-          })}
+                </div>
+              )
+            })}
+        </div>
       </div>
     )
   }

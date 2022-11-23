@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { AppRootStateType } from '../redux/redux-store';
-import { followAC, setCurrentPageAC, setUsersAC, unfollowAC, UserType } from '../redux/users-reducer';
+import { followAC, setCurrentPageAC, SetTotalUsersCountAC, setUsersAC, unfollowAC, UserType } from '../redux/users-reducer';
 import  Users  from './UsersClassComp';
 
 
@@ -16,6 +16,7 @@ type MapDispatchToPropsType = {
   unfollowUser: (id: number) => void
   setCurrentPage: (num: number) => void
   setUsers: (nextUsers: UserType[]) => void
+  setTotlaUsersCount: (num: number) => void
 }
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
   return {
@@ -30,7 +31,8 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     followUser: (id: number) => dispatch(followAC(id)),
     unfollowUser: (id: number) => dispatch(unfollowAC(id)),
     setCurrentPage: (num: number) => dispatch(setCurrentPageAC(num)),
-    setUsers: (nextUsers: UserType[]) => dispatch(setUsersAC(nextUsers))
+    setUsers: (nextUsers: UserType[]) => dispatch(setUsersAC(nextUsers)),
+    setTotlaUsersCount: (num: number) => dispatch(SetTotalUsersCountAC(num))
   }
 }
 export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);

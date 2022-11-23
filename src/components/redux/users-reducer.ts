@@ -19,6 +19,10 @@ export type SetUsersAT = {
   type: 'SET-USERS'
   users: Array<UserType>
 }
+export type SetTotalUsersCountAT = {
+  type: 'SET-TOTAL-USERS-COUNT'
+  totalCount: number
+}
 export type SetCurrentPageAT = {
   type: 'SET-CURRENT-PAGE'
   pageNumber: number
@@ -46,7 +50,7 @@ export type UsersType = {
   users: Array<UserType>
 }
 let initialState: UsersType = {
-  pageSize: 5,
+  pageSize: 6,
   totalUsersCount: 0,
   currentPage: 1,
   users: [
@@ -69,9 +73,11 @@ export const usersReducer = (state: UsersType = initialState, action: AllActionT
     case UNFOLLOW:
       return { ...state, users: state.users.map(u => u.id !== action.userID ? u : ({ ...u, followed: false })) }
     case SET_USERS:
-      return { ...state, users: [ ...action.users] };
+      return { ...state, users: [...action.users] };
     case SET_CURRENT_PAGE:
       return {...state, currentPage: action.pageNumber}
+    case SET_TOTAL_USERS_COUNT:
+      return {...state, totalUsersCount: action.totalCount}
     default:
       return state;
   }
@@ -81,3 +87,4 @@ export const followAC = (id: number): FollowAT => ({ type: FOLLOW, userID: id })
 export const unfollowAC = (id: number): UnfollowAT => ({ type: UNFOLLOW, userID: id })
 export const setUsersAC = (users: Array<UserType>): SetUsersAT => ({ type: SET_USERS, users })
 export const setCurrentPageAC = (pageNumber: number): SetCurrentPageAT => ({ type: SET_CURRENT_PAGE, pageNumber })
+export const SetTotalUsersCountAC = (totalCount: number): SetTotalUsersCountAT => ({ type: SET_TOTAL_USERS_COUNT, totalCount })
