@@ -7,9 +7,13 @@ import React from "react";
 
 type UserPropsType = {
   users: UserType[]
+  pageSize: number
+  totalUsersCount: number
+  currentPage: number
   unfollowUser: (id: number) => void
   followUser: (id: number) => void
   setUsers: (nextUsers: UserType[]) => void
+  setCurrentPage: (num: number) => void
 }
 
 class Users extends React.Component<UserPropsType> {
@@ -21,22 +25,37 @@ class Users extends React.Component<UserPropsType> {
   //     })
   //   }  
   // }
-componentDidMount(): void {
-  if (this.props.users.length === 0) {
-  axios.get(' https://social-network.samuraijs.com/api/1.0/users').then(response => {
+  componentDidMount(): void {
+    // if (this.props.users.length === 0) {
+      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        this.props.setUsers(response.data.items)
+        this.props.setUsers(response.data.totalCount)
+      })
+    // }
+  }
+
+  onPageChanged = (pageNumber: number) => {
+    this.props.setCurrentPage(pageNumber);
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
         this.props.setUsers(response.data.items)
       })
-    }
-}
+  }
+
   render() {
+    let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+    let pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+      pages.push(i)
+    }
+    let pagesItem = pages.map(p => {
+      return (
+        <span className={this.props.currentPage === p ? s.selectedPages : ''} onClick={()=>this.onPageChanged(p)}>{p}</span>
+      )
+    })
     return (
-      <div>
+      <div className={s.wrapper}>
         <div className={s.pagesRow}>
-          <span>1</span>
-          <span className={s.selectedPages}>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
+          {pagesItem}
         </div>
         {/* <button onClick={this.getUsers}>GET USERS</button> */}
         {

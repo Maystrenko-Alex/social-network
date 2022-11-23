@@ -3,9 +3,9 @@ import { combineReducers, createStore } from "redux";
 import { dialogsReducer, MessagesPageType, SendMessageAT, UpdateNewTextMessageAT } from "./dialogs-reducer";
 import { AddPostAT, ProfilePageType, profileReducer, UpdateNewTextPostAT } from "./profile-reducer";
 import { SideBarPageType, sidebarReducer } from './sidebar-reducer';
-import { FollowAT, SetUsersAT, UnfollowAT, usersReducer, UsersType } from "./users-reducer";
+import { FollowAT, SetCurrentPageAT, SetUsersAT, UnfollowAT, usersReducer, UsersType } from "./users-reducer";
 
-export type  AllActionTypes = AddPostAT | UpdateNewTextPostAT | UpdateNewTextMessageAT | SendMessageAT | FollowAT | UnfollowAT | SetUsersAT
+export type  AllActionTypes = AddPostAT | UpdateNewTextPostAT | UpdateNewTextMessageAT | SendMessageAT | FollowAT | UnfollowAT | SetUsersAT | SetCurrentPageAT
 
 let rootReducer = combineReducers({
   profilePage: profileReducer,
