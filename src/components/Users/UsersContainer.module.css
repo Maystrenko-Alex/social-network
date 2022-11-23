@@ -35,3 +35,12 @@ border-radius: 50%;
   flex-direction: row;
   justify-content: flex-end;
 }
+.pagesRow {
+  text-align: center;
+}
+.selectedPages{
+  color: red;
+  /* font-weight: bold; */
+  font-size: 20px;
+  margin: 0 2px;
+}
