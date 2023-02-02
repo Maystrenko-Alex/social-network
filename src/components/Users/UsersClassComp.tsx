@@ -1,9 +1,8 @@
 import axios from "axios";
-import { UserType } from "../redux/users-reducer";
-import s from './UsersContainer.module.css';
-import default_images_user_photo_small from './../../assets/images/default_images_user_photo_small.png';
-import React from "react";
+import { UserType } from "../../redux/users-reducer";
+import style from './UsersContainer.module.css'; import React from "react";
 import { v1 } from "uuid";
+import User from "./User";
 
 
 type UserPropsType = {
@@ -19,83 +18,50 @@ type UserPropsType = {
 }
 
 class Users extends React.Component<UserPropsType> {
-  // constructor(props:UserPropsType) {
-  //   super(props);
-  //   if (this.props.users.length === 0) {
-  //     axios.get(' https://social-network.samuraijs.com/api/1.0/users').then(response => {
-  //       this.props.setUsers(response.data.items)
-  //     })
-  //   }  
-  // }
+  
+  getUsers(currentPage: number, pageSize: number) {
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`).then(response => {
+      this.props.setUsers(response.data.items)
+    })
+  }
+
+  onPrevPage = () => {
+    if (this.props.currentPage > 1) {
+      this.props.setCurrentPage(this.props.currentPage - 1);
+      this.getUsers(this.props.currentPage - 1, this.props.pageSize)
+    }
+  }
+  onNextPage = () => {
+    if (this.props.currentPage < Math.ceil(this.props.totalUsersCount / this.props.pageSize)) {
+      this.props.setCurrentPage(this.props.currentPage + 1);
+      this.getUsers(this.props.currentPage + 1, this.props.pageSize)
+    }
+  }
+
   componentDidMount(): void {
-    // if (this.props.users.length === 0) {
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+      .then(response => {
         this.props.setUsers(response.data.items)
         this.props.setTotlaUsersCount(response.data.totalCount)
       })
-    // }
   }
-
-  onPageChanged = (pageNumber: number) => {
-    this.props.setCurrentPage(pageNumber);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
-        this.props.setUsers(response.data.items)
-      })
-  }
-
   render() {
+
     let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
     let pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-      pages.push(i)
-    }
-    let pagesItem = pages.map(p => {
-      return (
-        <span key={v1()} className={this.props.currentPage === p ? s.selectedPages : ''} onClick={()=>this.onPageChanged(p)}>{p}</span>
-      )
+    let usersList = this.props.users.map(user => {
+      return <User key={user.id} user={user} followUser={this.props.followUser} unfollowUser={this.props.unfollowUser} />
     })
+
     return (
-      <div className={s.wrapper}>
-        <div className={s.pagesRow}>
-          {pagesItem}
+      <div className={style.wrapper}>
+        <div className={style.usersContainer}>
+          {usersList}
         </div>
-        {/* <button onClick={this.getUsers}>GET USERS</button> */}
-        <div className={s.usersContainer}>
-          {
-            this.props.users.map(user => {
-              return (
-                <div key={user.id} className={s.wrapperUser}>
-                  <span className={s.ava_btn}>
-                    <div>
-                      <img
-                        className={s.imageAva}
-                        style={{ width: '70px', height: '70px' }}
-                        src={user.photos.small != null ? user.photos.small : default_images_user_photo_small}
-                        alt='img'
-                      />
-                    </div>
-                    <div className={s.userButton}>
-                      {/* {<button onClick={()=>props.followUser(user.id)}>{user.followed ? 'Unfollow' : 'Follow'}</button>} */}
-                      {
-                        user.followed
-                          ? <button onClick={() => this.props.unfollowUser(user.id)}>Unfollow</button>
-                          : <button onClick={() => this.props.followUser(user.id)}>Follow</button>
-                      }
-                    </div>
-                  </span>
-                  <span className={s.userInfo}>
-                    <span>
-                      <div className={s.userName}>{user.name}</div>
-                      <div className={s.userStatus}>{user.status}</div>
-                    </span>
-                    <span className={s.locationUser}>
-                      <div>{'user.location.country'}</div>
-                      <div>{'user.location.city'}</div>
-                    </span>
-                  </span>
-                </div>
-              )
-            })}
+        <div className={style.pages}>
+          <button onClick={this.onPrevPage}>PrevPage</button>
+          {`${this.props.currentPage} page from ${pagesCount}`}
+          <button onClick={this.onNextPage}>NextPage</button>
         </div>
       </div>
     )

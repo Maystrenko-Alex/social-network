@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { MessagesPageType, sendMessageAC, updateNewTextMessageAC } from '../redux/dialogs-reducer';
-import { AppRootStateType } from '../redux/redux-store';
+import { MessagesPageType, sendMessageAC, updateNewTextMessageAC } from '../../redux/dialogs-reducer';
+import { AppRootStateType } from '../../redux/redux-store';
 import { Dialogs } from './Dialogs';
 
 // type DialogsContanerPropsType = {

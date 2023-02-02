@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux';
-import { AppRootStateType } from '../redux/redux-store';
-import { SideBarPageType } from '../redux/sidebar-reducer';
+import { AppRootStateType } from '../../redux/redux-store';
+import { SideBarPageType } from '../../redux/sidebar-reducer';
 import { Friends } from './Friends/Friends';
 import s from './Navbar.module.css';
 import { NavItem } from './NavItem/NavItem';

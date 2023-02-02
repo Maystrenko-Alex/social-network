@@ -49,35 +49,26 @@ export type UsersType = {
   currentPage: number
   users: Array<UserType>
 }
+
 let initialState: UsersType = {
-  pageSize: 6,
+  pageSize: 12,
   totalUsersCount: 0,
-  currentPage: 1,
-  users: [
-    // { id: 1, photoUrl: 'https://i.pinimg.com/236x/e9/57/2a/e9572a70726980ed5445c02e1058760b.jpg', followed: false, fullName: 'Dmitry', status: 'I am a Boss', location: { city: 'Minsk', country: 'Belarus' } },
-    // { id: 2, photoUrl: 'https://e00-marca.uecdn.es/assets/multimedia/imagenes/2020/06/04/15912219730543.jpg', followed: false, fullName: 'Alex', status: ':)', location: { city: 'Moscow', country: 'Russia' } },
-    // { id: 3, photoUrl: 'https://i0.wp.com/nofiredrills.com/wp-content/uploads/2016/10/myavatar.png?fit=400%2C400&ssl=1', followed: true, fullName: 'Sveta', status: '', location: { city: 'Kiev', country: 'Ukrian' } },
-    // { id: 4, photoUrl: 'https://cdn-icons-png.flaticon.com/512/183/183753.png', followed: false, fullName: 'Evgen', status: '------> !', location: { city: 'Berlin', country: 'Germany' } }
-  ]
+  currentPage: 2,
+  users: []
 }
+
 export const usersReducer = (state: UsersType = initialState, action: AllActionTypes): UsersType => {
   switch (action.type) {
     case FOLLOW:
-      return {
-        ...state, users: state.users.map(u => u.id !== action.userID
-          ? u
-          // : { id: u.id, photos: u.photos, followed: true, name: u.name, status: u.status, location: { city: u.location.city, country: u.location.country } }
-          : { ...u, followed: true }
-        )
-      }
+      return { ...state, users: state.users.map(u => u.id !== action.userID ? u : { ...u, followed: true }) }
     case UNFOLLOW:
       return { ...state, users: state.users.map(u => u.id !== action.userID ? u : ({ ...u, followed: false })) }
     case SET_USERS:
-      return { ...state, users: [...action.users] };
+      return { ...state, users: action.users };
     case SET_CURRENT_PAGE:
-      return {...state, currentPage: action.pageNumber}
+      return { ...state, currentPage: action.pageNumber }
     case SET_TOTAL_USERS_COUNT:
-      return {...state, totalUsersCount: action.totalCount}
+      return { ...state, totalUsersCount: action.totalCount }
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { ProfilePageType } from '../../redux/profile-reducer';
+import { ProfilePageType } from '../../../redux/profile-reducer';
 import s from './MyPosts.module.css';
 import { Post } from './Post/Post';
 

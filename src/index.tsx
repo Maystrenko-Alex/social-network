@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from "./reportWebVitals";
 import './index.css';
-import store from "./components/redux/redux-store";
+import store from "./redux/redux-store";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { Provider } from "react-redux";

@@ -1,45 +1,17 @@
-.usersContainer{
-  display:flexbox;
- 
-}
-
-.wrapperUser {
+.wrapper {
   display: flex;
-  flex-direction: row;
-  /* justify-content: center; */
-  min-width: 10%;
-  max-width: 30%;
-  margin: 20px;
-  border: 2px solid black;
-  border-radius: 5px;
-  padding: 5px 15px;
-}
-.imageAva {
-width: 70px;
-height: 70px;
-border-radius: 50%;
-}
-.userButton {
-  display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
+}
+
+.usersContainer{
+  display:flex;
+  flex-wrap: wrap;
+
  
 }
-.ava_btn {
-  margin-right: 25px;
-}
-.userName {
-  font-weight: 700;
-  font-style: italic;
-  font-size: 18px;
-}
-/* .userInfo {} */
 
-.locationUser{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-}
+
 .pagesRow {
   text-align: center;
 }
@@ -48,4 +20,9 @@ border-radius: 50%;
   /* font-weight: bold; */
   font-size: 20px;
   margin: 0 2px;
+}
+
+.pages {
+  display: flex;
+  align-self: center;
 }

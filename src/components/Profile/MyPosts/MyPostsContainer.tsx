@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { addPostAC, ProfilePageType, updateNewTextPostAC } from '../../redux/profile-reducer';
-import { AppRootStateType } from '../../redux/redux-store';
+import { addPostAC, ProfilePageType, updateNewTextPostAC } from '../../../redux/profile-reducer';
+import { AppRootStateType } from '../../../redux/redux-store';
 import MyPosts from './MyPosts';
 
 export type MyPostsContainerPropsType = {

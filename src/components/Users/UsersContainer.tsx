@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { AppRootStateType } from '../redux/redux-store';
-import { followAC, setCurrentPageAC, SetTotalUsersCountAC, setUsersAC, unfollowAC, UserType } from '../redux/users-reducer';
+import { AppRootStateType } from '../../redux/redux-store';
+import { followAC, setCurrentPageAC, SetTotalUsersCountAC, setUsersAC, unfollowAC, UserType } from '../../redux/users-reducer';
 import  Users  from './UsersClassComp';
 
 

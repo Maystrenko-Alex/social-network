@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserType } from "../redux/users-reducer";
+import { UserType } from "../../redux/users-reducer";
 import s from './UsersContainer.module.css';
 import default_images_user_photo_small from './../../assets/images/default_images_user_photo_small.png';
 
