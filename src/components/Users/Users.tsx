@@ -1,62 +1,39 @@
-import axios from "axios";
-import { UserType } from "../../redux/users-reducer";
-import s from './UsersContainer.module.css';
-import default_images_user_photo_small from './../../assets/images/default_images_user_photo_small.png';
+import React from 'react';
+import { UserType } from '../../redux/users-reducer';
+import User from './User';
+import style from './Users.module.css';
 
 type UsersPropsType = {
-  users: UserType[]
-  unfollowUser: (id: number) => void
+  totalUsersCount: number
+  pageSize: number
+  currentPage: number
+  users : UserType[]
   followUser: (id: number) => void
-  setUsers: (nextUsers: UserType[]) => void
+  unfollowUser: (id: number) => void
+  onPrevPage: () => void
+  onNextPage: () => void
 }
 
-export const Users = (props: UsersPropsType) => {
-  console.log('render')
-  const getUsers = () => {
-    if (props.users.length === 0) {
-      axios.get(' https://social-network.samuraijs.com/api/1.0/users').then(response => {
-        props.setUsers(response.data.items)
-      })
-    }
-  }
+const Users = (props: UsersPropsType) => {
+
+  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    
+    let usersList = props.users.map(user => {
+      return <User key={user.id} user={user} followUser={props.followUser} unfollowUser={props.unfollowUser} />
+    })
+
   return (
-    <div>
-      <button onClick={getUsers}>GET USERS</button>
-      {
-        props.users.map(user => {
-          return (
-            <div key={user.id} className={s.wrapperUser}>
-              <span className={s.ava_btn}>
-                <div>
-                  <img
-                    className={s.imageAva}
-                    style={{ width: '70px', height: '70px' }}
-                    src={user.photos.small != null ? user.photos.small : default_images_user_photo_small}
-                    alt='img'
-                  />
-                </div>
-                <div className={s.userButton}>
-                  {/* {<button onClick={()=>props.followUser(user.id)}>{user.followed ? 'Unfollow' : 'Follow'}</button>} */}
-                  {
-                    user.followed
-                      ? <button onClick={() => props.unfollowUser(user.id)}>Unfollow</button>
-                      : <button onClick={() => props.followUser(user.id)}>Follow</button>
-                  }
-                </div>
-              </span>
-              <span className={s.userInfo}>
-                <span>
-                  <div className={s.userName}>{user.name}</div>
-                  <div className={s.userStatus}>{user.status}</div>
-                </span>
-                <span className={s.locationUser}>
-                  <div>{'user.location.country'}</div>
-                  <div>{'user.location.city'}</div>
-                </span>
-              </span>
-            </div>
-          )
-        })}
-    </div>
+    <div className={style.wrapper}>
+        <div className={style.usersContainer}>
+          {usersList}
+        </div>
+        <div className={style.pages}>
+          <button onClick={props.onPrevPage}>PrevPage</button>
+          {`${props.currentPage} page from ${pagesCount}`}
+          <button onClick={props.onNextPage}>NextPage</button>
+        </div>
+      </div>
   );
-}
+};
+
+export default Users;

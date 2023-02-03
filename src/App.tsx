@@ -8,7 +8,7 @@ import News from './components/News/News';
 import NotFound from './components/NotFound/NotFound';
 import { Profile } from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
-import { UsersContainer } from './components/Users/UsersContainer';
+import UsersContainer from './components/Users/UsersContainer';
 
 
 type AppPropsType = {
