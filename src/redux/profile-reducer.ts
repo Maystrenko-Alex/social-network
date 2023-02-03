@@ -1,16 +1,12 @@
-import { AllActionTypes } from "./redux-store";
-
-
-
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_TEXT_POST = 'UPDATE-NEW-TEXT-POST';
 
-export type PostType = {
+type PostType = {
   id: number
   message: string
   likesCount: number
 }
-export type AddPostAT = {
+type AddPostAT = {
   type: 'ADD-POST'
 }
 export type UpdateNewTextPostAT = {
@@ -21,7 +17,7 @@ export type ProfilePageType = {
   newTextPost: string
   posts: Array<PostType>
 }
-// export type ProfileActionTypes = AddPostAT | UpdateNewTextPostAT;
+export type ActionsTypes = AddPostAT | UpdateNewTextPostAT;
 
 let initialState = {
   newTextPost: '',
@@ -32,7 +28,7 @@ let initialState = {
   ]
 };
 
-export const profileReducer = (state: ProfilePageType = initialState, action: AllActionTypes): ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
   switch (action.type) {
     case ADD_POST:
       return {

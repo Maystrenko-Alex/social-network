@@ -31,9 +31,9 @@ const User = ({user, unfollowUser, followUser}: UserPropsType) => {
         </div>
       </span>
       <span className={style.userInfo}>
-        <span>
+        <span className={style.name_status}>
           <div className={style.userName}>{user.name}</div>
-          <div className={style.userStatus}>{user.status}</div>
+          <div className={style.userStatus}>{user.status || 'status is empty...'}</div>
         </span>
         <span className={style.locationUser}>
           <div>{'user.location.country'}</div>

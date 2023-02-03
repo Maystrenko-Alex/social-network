@@ -1,5 +1,3 @@
-import { AllActionTypes } from "./redux-store"
-
 
 export type NavbarListType = {
   id: number,
@@ -14,9 +12,9 @@ export type SideBarPageType = {
   bestFriends: Array<BestFriendsType>
 }
 
-// type ActionTypes = {
+type ActionsTypes = {
 
-// }
+}
 
 let initialState = {
   navbarList: [
@@ -34,7 +32,7 @@ let initialState = {
   ]
 };
 
-export const sidebarReducer = (state: SideBarPageType = initialState, action: AllActionTypes):SideBarPageType => {
+export const sidebarReducer = (state: SideBarPageType = initialState, action: ActionsTypes):SideBarPageType => {
   
   return state
 }
