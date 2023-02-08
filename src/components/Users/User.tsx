@@ -2,6 +2,7 @@ import React from 'react';
 import { UserType } from '../../redux/users-reducer';
 import style from './User.module.css';
 import default_image from './../../assets/images/default_user_image.png';
+import { NavLink } from 'react-router-dom';
 
 type UserPropsType = {
   user: UserType
@@ -14,12 +15,14 @@ const User = ({user, unfollowUser, followUser}: UserPropsType) => {
     <div key={user.id} className={style.wrapperUser}>
       <span className={style.ava_btn}>
         <div>
-          <img
-            className={style.imageAva}
-            style={{ width: '70px', height: '70px' }}
-            src={user.photos.large || user.photos.small  || default_image}
-            alt='img'
-          />
+          <NavLink to={`/profile/${user.id}`}>
+            <img
+              className={style.imageAva}
+              style={{ width: '70px', height: '70px' }}
+              src={user.photos.large || user.photos.small  || default_image}
+              alt='img'
+            />
+          </NavLink>
         </div>
         <div className={style.userButton}>
           {/* {<button onClick={()=>props.followUser(user.id)}>{user.followed ? 'Unfollow' : 'Follow'}</button>} */}

@@ -6,10 +6,9 @@ import Music from './components/Music/Music';
 import { NavbarContainer } from './components/Navbar/Navbar';
 import News from './components/News/News';
 import NotFound from './components/NotFound/NotFound';
-import { Profile } from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
-
+import WithParametrsProfileContainer from './components/Profile/ProfileContainer';
 
 type AppPropsType = {
 
@@ -24,8 +23,9 @@ export function App(props: AppPropsType) {
         <NavbarContainer />
         <div className='content'>
           <Routes>
-            <Route index element={<Profile />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route index element={ <WithParametrsProfileContainer />} />
+            <Route path='/profile' element={<WithParametrsProfileContainer />} />
+            <Route path='/profile/:userId' element={<WithParametrsProfileContainer />} />
             <Route path='/dialogs/*' element={<DialogsContainer />} />
             <Route path='/users' element={<UsersContainer />} />
             <Route path='/news/' element={<News />} />

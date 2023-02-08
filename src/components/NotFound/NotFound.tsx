@@ -7,7 +7,7 @@ function NotFound() {
       <div>
         Страница не найдена
       </div>
-      <NavLink to={'/profile'} >'Перейти на главную страницу'</NavLink>
+      <NavLink to={'/profile'} >Перейти на главную страницу</NavLink>
     </div>
   );
 }
