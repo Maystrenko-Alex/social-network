@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import { DialogsContainer } from './components/Dialogs/DialogsContainer';
 import Header from './components/Header/Header';
@@ -24,8 +24,8 @@ export function App(props: AppPropsType) {
         <div className='content'>
           <Routes>
             <Route index element={ <WithParametrsProfileContainer />} />
-            <Route path='/profile' element={<WithParametrsProfileContainer />} />
-            <Route path='/profile/:userId' element={<WithParametrsProfileContainer />} />
+            <Route path='/profile/' element={<Navigate to={'/'} replace />} />
+              <Route path='/profile/:userId' element={<WithParametrsProfileContainer />} />
             <Route path='/dialogs/*' element={<DialogsContainer />} />
             <Route path='/users' element={<UsersContainer />} />
             <Route path='/news/' element={<News />} />

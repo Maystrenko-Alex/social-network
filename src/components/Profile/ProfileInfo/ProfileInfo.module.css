@@ -6,4 +6,10 @@
 
 .descriptionBlock {
   padding: 10px;
+  display: inline-flex;
+  gap: 30px;
+}
+.info {
+  display: flex;
+  flex-direction: column;
 }

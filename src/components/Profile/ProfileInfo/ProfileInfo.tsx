@@ -9,7 +9,7 @@ type ProfileInfoPropsType = {
 }
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
-  if (!props.currentProfile) {
+  if (!props.currentProfile.photos) {
     return <Preloader />
   }
   return (
@@ -18,8 +18,12 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         <img alt='' src='https://st.depositphotos.com/1927453/2592/i/600/depositphotos_25922381-stock-photo-sunset-over-green-wheat-field.jpg'></img>
       </div>
       <div className={style.descriptionBlock}>
-        <img src={props.currentProfile.photos.large} alt={'userAva'} />
-        {props.currentProfile.fullName}
+        <img src={props.currentProfile.photos.large || defaultAva} alt={'userAva'} />
+        <div className={style.info}>
+          <h3>My name: {props.currentProfile.fullName}</h3>
+          <p>About me: {props.currentProfile.abouteMe}</p>
+          <p>My social networks: {props.currentProfile.contacts.facebook}</p>
+        </div>
         
       </div>
     </div>

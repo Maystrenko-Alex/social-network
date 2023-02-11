@@ -24,8 +24,12 @@ type ProfileContainerPropsType = {
 class ProfileContainer extends React.Component <ProfileContainerPropsType>{
 
 componentDidMount(): void {
-  debugger
-  axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.params.userId}`, {withCredentials: true})
+  let userId = this.props.params.userId;
+  if (!userId) {
+    userId = '2';
+
+  }
+  axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {withCredentials: true})
     .then(response => {
      
        this.props.setUserProfileAC(response.data)
@@ -43,6 +47,7 @@ type WithParametrsProfileContainerPropsType = {
 const WithParametrsProfileContainer = (props: WithParametrsProfileContainerPropsType) => {
   let params = useParams();
   let location = useLocation();
+
   return (
   <ProfileContainer {...props} params={params} location={location} />
   )
