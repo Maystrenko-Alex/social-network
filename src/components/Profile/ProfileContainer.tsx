@@ -15,41 +15,41 @@ export type LocationType = {
 }
 
 type ProfileContainerPropsType = {
- params: Params<string>,
- location: LocationType,
- setUserProfileAC: (currentProfile: CurrentProfileType) => void
- currentProfile: CurrentProfileType
+  params: Params<string>,
+  location: LocationType,
+  setUserProfileAC: (currentProfile: CurrentProfileType) => void
+  currentProfile: CurrentProfileType
 }
 
-class ProfileContainer extends React.Component <ProfileContainerPropsType>{
+class ProfileContainer extends React.Component<ProfileContainerPropsType>{
 
-componentDidMount(): void {
-  let userId = this.props.params.userId;
-  if (!userId) {
-    userId = '2';
+  componentDidMount(): void {
+    let userId = this.props.params.userId;
+    if (!userId) {
+      userId = '2';
 
+    }
+    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, { withCredentials: true })
+      .then(response => {
+
+        this.props.setUserProfileAC(response.data)
+
+      })
   }
-  axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {withCredentials: true})
-    .then(response => {
-     
-       this.props.setUserProfileAC(response.data)
-     
-    })
-}
   render() {
     return <Profile {...this.props} />
   }
 }
 type WithParametrsProfileContainerPropsType = {
   currentProfile: CurrentProfileType
-  setUserProfileAC: (currentProfile: CurrentProfileType ) => void
+  setUserProfileAC: (currentProfile: CurrentProfileType) => void
 }
 const WithParametrsProfileContainer = (props: WithParametrsProfileContainerPropsType) => {
   let params = useParams();
   let location = useLocation();
 
   return (
-  <ProfileContainer {...props} params={params} location={location} />
+    <ProfileContainer {...props} params={params} location={location} />
   )
 }
 type MapStateToPropsType = {
@@ -61,5 +61,5 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
   }
 }
 
-export default connect(mapStateToProps, {setUserProfileAC})(WithParametrsProfileContainer)
+export default connect(mapStateToProps, { setUserProfileAC })(WithParametrsProfileContainer)
 
