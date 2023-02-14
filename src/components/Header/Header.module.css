@@ -2,10 +2,23 @@
   height: 70px;
   border: 2px solid black;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: rgb(71, 170, 103);
-  padding: 10px;
+  padding: 10px 50px;
   margin-bottom: 10px;
 }
 .header img {
-  margin: auto 0;
+  
+}
+
+.loginBlock {
+  
+}
+
+.loginBlock a{
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 20px;
 }
