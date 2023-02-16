@@ -1,7 +1,7 @@
-import axios from "axios";
 import React from "react";
 import { connect } from "react-redux";
 import { Params, useLocation, useParams } from "react-router-dom";
+import { userAPI } from "../../api/api";
 import { CurrentProfileType, setUserProfileAC } from "../../redux/profile-reducer";
 import { AppRootStateType } from "../../redux/redux-store";
 import { Profile } from "./Profile";
@@ -24,17 +24,14 @@ type ProfileContainerPropsType = {
 class ProfileContainer extends React.Component<ProfileContainerPropsType>{
 
   componentDidMount(): void {
-    let userId = this.props.params.userId;
+    let userId = Number(this.props.params.userId);
     if (!userId) {
-      userId = '2';
+      userId = 2;
 
     }
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, { withCredentials: true })
-      .then(response => {
-
-        this.props.setUserProfileAC(response.data)
-
-      })
+    // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, { withCredentials: true })
+    userAPI.getCurrentProfile(userId)
+      .then(response => this.props.setUserProfileAC(response.data))
   }
   render() {
     return <Profile {...this.props} />
@@ -45,7 +42,7 @@ type WithParametrsProfileContainerPropsType = {
   setUserProfileAC: (currentProfile: CurrentProfileType) => void
 }
 const WithParametrsProfileContainer = (props: WithParametrsProfileContainerPropsType) => {
-  let params = useParams();
+  let params = useParams<string>();
   let location = useLocation();
 
   return (

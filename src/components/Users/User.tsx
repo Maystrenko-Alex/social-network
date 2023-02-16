@@ -3,7 +3,7 @@ import { UserType } from '../../redux/users-reducer';
 import style from './User.module.css';
 import default_image from './../../assets/images/default_user_image.png';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
+import { userAPI } from '../../api/api';
 
 type UserPropsType = {
   user: UserType
@@ -13,7 +13,7 @@ type UserPropsType = {
 const User = ({user, unfollowUser, followUser}: UserPropsType) => {
 
   const unfollowHandler = ()=> {
-    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {withCredentials: true})
+    userAPI.unfollow(user.id)
     .then(response => {
       if (response.data.resultCode === 0) {
         unfollowUser(user.id)
@@ -22,7 +22,7 @@ const User = ({user, unfollowUser, followUser}: UserPropsType) => {
   }
 
   const followHandler = ()=> {
-    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, null, {withCredentials: true})
+    userAPI.follow(user.id)
     .then(response => {
       if (response.data.resultCode === 0) {
         followUser(user.id)
@@ -45,7 +45,6 @@ const User = ({user, unfollowUser, followUser}: UserPropsType) => {
           </NavLink>
         </div>
         <div className={style.userButton}>
-          {/* {<button onClick={()=>props.followUser(user.id)}>{user.followed ? 'Unfollow' : 'Follow'}</button>} */}
           {
             user.followed
               ? <button onClick={unfollowHandler}>Unfollow</button>

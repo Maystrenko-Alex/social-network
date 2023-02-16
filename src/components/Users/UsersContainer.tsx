@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { AppRootStateType } from '../../redux/redux-store';
 import { followAC, setCurrentPageAC, setIsFetchingAC, setTotalUsersCountAC, setUsersAC, unfollowAC, UserType } from '../../redux/users-reducer';
-import axios from "axios";
 import Users from './Users';
 import Preloader from '../Preloader/Preloader';
+import { userAPI } from '../../api/api';
 
 type UserPropsType = {
   users: UserType[]
@@ -23,13 +23,13 @@ type UserPropsType = {
 class UsersContainer extends React.Component<UserPropsType> {
 
   getUsers(currentPage: number, pageSize: number) {
-    this.props.setIsFetchingAC(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`, {withCredentials: true})
-      .then(response => {
-        this.props.setUsersAC(response.data.items)
-        this.props.setTotalUsersCountAC(response.data.totalCount)
+    this.props.setIsFetchingAC(true);
+    userAPI.getUsers(currentPage, pageSize)
+      .then(data => {
+        this.props.setUsersAC(data.items)
+        this.props.setTotalUsersCountAC(data.totalCount)
       })
-      .then(() => this.props.setIsFetchingAC(false))
+      .then(() => this.props.setIsFetchingAC(false));
   }
 
   onPrevPage = () => {
@@ -91,5 +91,5 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
   }
 }
 
-export default connect(mapStateToProps, 
+export default connect(mapStateToProps,
   { followAC, unfollowAC, setCurrentPageAC, setUsersAC, setTotalUsersCountAC, setIsFetchingAC })(UsersContainer);
