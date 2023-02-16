@@ -15,9 +15,6 @@ export class HeaderContainer extends React.Component <HeaderContainerPropsType>{
   componentDidMount(): void {
     axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
       .then(response => {
-        console.log(response.data)
-        debugger
-        
         if (response.data.resultCode === 0) {
           this.props.setUserDataAC(response.data.data)
         }

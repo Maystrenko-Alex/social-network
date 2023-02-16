@@ -6,6 +6,7 @@ export const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 export const SET_IS_FETCHING = 'SET-IS-FETCHING';
 
 
+
 type SetIsFetchingAT = {
   type: 'SET-IS-FETCHING',
   isFetching: boolean
@@ -54,13 +55,14 @@ export type UsersType = {
   totalUsersCount: number
   currentPage: number
   isFetching: boolean
-  users: Array<UserType>
+  users: Array<UserType>,
+  
 }
 
 let initialState: UsersType = {
   pageSize: 12,
   totalUsersCount: 0,
-  currentPage: 2,
+  currentPage: 1,
   isFetching: false,
   users: []
 }

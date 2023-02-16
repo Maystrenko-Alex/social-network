@@ -3,6 +3,7 @@ import { UserType } from '../../redux/users-reducer';
 import style from './User.module.css';
 import default_image from './../../assets/images/default_user_image.png';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 type UserPropsType = {
   user: UserType
@@ -10,6 +11,25 @@ type UserPropsType = {
   followUser: (id: number)=> void
 }
 const User = ({user, unfollowUser, followUser}: UserPropsType) => {
+
+  const unfollowHandler = ()=> {
+    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {withCredentials: true})
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        unfollowUser(user.id)
+      }
+    })
+  }
+
+  const followHandler = ()=> {
+    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, null, {withCredentials: true})
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        followUser(user.id)
+      }
+    })
+  }
+
 
   return (
     <div key={user.id} className={style.wrapperUser}>
@@ -28,8 +48,8 @@ const User = ({user, unfollowUser, followUser}: UserPropsType) => {
           {/* {<button onClick={()=>props.followUser(user.id)}>{user.followed ? 'Unfollow' : 'Follow'}</button>} */}
           {
             user.followed
-              ? <button onClick={() => unfollowUser(user.id)}>Unfollow</button>
-              : <button onClick={() => followUser(user.id)}>Follow</button>
+              ? <button onClick={unfollowHandler}>Unfollow</button>
+              : <button onClick={followHandler}>Follow</button>
           }
         </div>
       </span>
