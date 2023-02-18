@@ -7,26 +7,32 @@ import { userAPI } from '../../api/api';
 
 type UserPropsType = {
   user: UserType
+  arrToggle: Array<number>
   unfollowUser: (id: number) => void
   followUser: (id: number)=> void
+  toggleIsEnabled: (isToggle: boolean, userID: number) => void
 }
-const User = ({user, unfollowUser, followUser}: UserPropsType) => {
+const User = ({user,arrToggle, unfollowUser, followUser, toggleIsEnabled}: UserPropsType) => {
 
   const unfollowHandler = ()=> {
+    toggleIsEnabled(true, user.id)
     userAPI.unfollow(user.id)
     .then(response => {
       if (response.data.resultCode === 0) {
         unfollowUser(user.id)
       }
+      toggleIsEnabled(false, user.id)
     })
   }
 
   const followHandler = ()=> {
+    toggleIsEnabled(true, user.id)
     userAPI.follow(user.id)
     .then(response => {
       if (response.data.resultCode === 0) {
         followUser(user.id)
       }
+      toggleIsEnabled(false, user.id)
     })
   }
 
@@ -47,8 +53,8 @@ const User = ({user, unfollowUser, followUser}: UserPropsType) => {
         <div className={style.userButton}>
           {
             user.followed
-              ? <button onClick={unfollowHandler}>Unfollow</button>
-              : <button onClick={followHandler}>Follow</button>
+              ? <button disabled={arrToggle.some(el => el === user.id)} onClick={unfollowHandler}>Unfollow</button>
+              : <button disabled={arrToggle.some(el => el === user.id)} onClick={followHandler}>Follow</button>
           }
         </div>
       </span>

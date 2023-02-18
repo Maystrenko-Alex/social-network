@@ -4,36 +4,41 @@ export const SET_USERS = 'SET-USERS';
 export const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 export const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 export const SET_IS_FETCHING = 'SET-IS-FETCHING';
+export const TOGGLE_IS_ENABLED = 'TOGGLE-IS-ENABLED'
 
-
-
+type ToggleISEnabled = {
+  type: 'TOGGLE-IS-ENABLED'
+  isToggle: boolean
+  userID: number
+}
 type SetIsFetchingAT = {
   type: 'SET-IS-FETCHING',
   isFetching: boolean
 }
 
- type FollowAT = {
+type FollowAT = {
   type: 'FOLLOW'
   userID: number
 }
- type UnfollowAT = {
+type UnfollowAT = {
   type: 'UNFOLLOW'
   userID: number
 }
- type SetUsersAT = {
+type SetUsersAT = {
   type: 'SET-USERS'
   users: Array<UserType>
 }
- type SetTotalUsersCountAT = {
+type SetTotalUsersCountAT = {
   type: 'SET-TOTAL-USERS-COUNT'
   totalCount: number
 }
- type SetCurrentPageAT = {
+type SetCurrentPageAT = {
   type: 'SET-CURRENT-PAGE'
   pageNumber: number
 }
 
-type ActionsTypes = SetCurrentPageAT | SetTotalUsersCountAT | SetUsersAT | UnfollowAT | FollowAT | SetIsFetchingAT;
+type ActionsTypes = SetCurrentPageAT | SetTotalUsersCountAT | SetUsersAT | UnfollowAT | FollowAT |
+  SetIsFetchingAT | ToggleISEnabled;
 type UserFotoType = {
   small: string
   large: string
@@ -56,7 +61,7 @@ export type UsersType = {
   currentPage: number
   isFetching: boolean
   users: Array<UserType>,
-  
+  arrToggle: Array<number>
 }
 
 let initialState: UsersType = {
@@ -64,7 +69,8 @@ let initialState: UsersType = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
-  users: []
+  users: [],
+  arrToggle: []
 }
 
 export const usersReducer = (state: UsersType = initialState, action: ActionsTypes): UsersType => {
@@ -80,7 +86,14 @@ export const usersReducer = (state: UsersType = initialState, action: ActionsTyp
     case SET_TOTAL_USERS_COUNT:
       return { ...state, totalUsersCount: action.totalCount };
     case SET_IS_FETCHING:
-      return {...state, isFetching: action.isFetching};
+      return { ...state, isFetching: action.isFetching };
+    case TOGGLE_IS_ENABLED:
+      return {
+        ...state,
+        arrToggle: action.isToggle
+        ? [...state.arrToggle, action.userID]
+          : state.arrToggle.filter(el => el !== action.userID)
+      }
     default:
       return state;
   }
@@ -92,3 +105,4 @@ export const setUsersAC = (users: Array<UserType>): SetUsersAT => ({ type: SET_U
 export const setCurrentPageAC = (pageNumber: number): SetCurrentPageAT => ({ type: SET_CURRENT_PAGE, pageNumber })
 export const setTotalUsersCountAC = (totalCount: number): SetTotalUsersCountAT => ({ type: SET_TOTAL_USERS_COUNT, totalCount })
 export const setIsFetchingAC = (isFetching: boolean): SetIsFetchingAT => ({ type: SET_IS_FETCHING, isFetching })
+export const toggleIsEnabled = (isToggle: boolean, userID: number) => ({ type: TOGGLE_IS_ENABLED, isToggle, userID })
