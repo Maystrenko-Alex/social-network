@@ -1,3 +1,6 @@
+import { Dispatch } from "redux";
+import { userAPI } from "../api/api";
+
 export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';
 export const SET_USERS = 'SET-USERS';
@@ -6,7 +9,7 @@ export const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 export const SET_IS_FETCHING = 'SET-IS-FETCHING';
 export const TOGGLE_IS_ENABLED = 'TOGGLE-IS-ENABLED'
 
-type ToggleISEnabled = {
+type ToggleIsEnabledAT = {
   type: 'TOGGLE-IS-ENABLED'
   isToggle: boolean
   userID: number
@@ -38,7 +41,7 @@ type SetCurrentPageAT = {
 }
 
 type ActionsTypes = SetCurrentPageAT | SetTotalUsersCountAT | SetUsersAT | UnfollowAT | FollowAT |
-  SetIsFetchingAT | ToggleISEnabled;
+  SetIsFetchingAT | ToggleIsEnabledAT;
 type UserFotoType = {
   small: string
   large: string
@@ -99,10 +102,48 @@ export const usersReducer = (state: UsersType = initialState, action: ActionsTyp
   }
 }
 
-export const followAC = (id: number): FollowAT => ({ type: FOLLOW, userID: id })
-export const unfollowAC = (id: number): UnfollowAT => ({ type: UNFOLLOW, userID: id })
-export const setUsersAC = (users: Array<UserType>): SetUsersAT => ({ type: SET_USERS, users })
-export const setCurrentPageAC = (pageNumber: number): SetCurrentPageAT => ({ type: SET_CURRENT_PAGE, pageNumber })
-export const setTotalUsersCountAC = (totalCount: number): SetTotalUsersCountAT => ({ type: SET_TOTAL_USERS_COUNT, totalCount })
-export const setIsFetchingAC = (isFetching: boolean): SetIsFetchingAT => ({ type: SET_IS_FETCHING, isFetching })
-export const toggleIsEnabled = (isToggle: boolean, userID: number) => ({ type: TOGGLE_IS_ENABLED, isToggle, userID })
+export const follow = (id: number): FollowAT => ({ type: FOLLOW, userID: id });
+export const unfollow = (id: number): UnfollowAT => ({ type: UNFOLLOW, userID: id });
+export const setUsers = (users: Array<UserType>): SetUsersAT => ({ type: SET_USERS, users });
+export const setCurrentPage = (pageNumber: number): SetCurrentPageAT => ({ type: SET_CURRENT_PAGE, pageNumber });
+export const setTotalUsersCount = (totalCount: number): SetTotalUsersCountAT => ({ type: SET_TOTAL_USERS_COUNT, totalCount });
+export const setIsFetching = (isFetching: boolean): SetIsFetchingAT => ({ type: SET_IS_FETCHING, isFetching });
+export const toggleIsEnabled = (isToggle: boolean, userID: number): ToggleIsEnabledAT => ({ type: TOGGLE_IS_ENABLED, isToggle, userID });
+
+export const getUsers = (currentPage: number, pageSize: number) => {
+  return (dispatch: Dispatch<ActionsTypes>) => {
+    dispatch(setIsFetching(true));
+    userAPI.getUsers(currentPage, pageSize)
+      .then(data => {
+        dispatch(setUsers(data.items));
+        dispatch(setTotalUsersCount(data.totalCount));
+        dispatch(setIsFetching(false))
+      })
+  }
+}
+
+export const followUser = (userID: number) => {
+  return (dispatch: Dispatch<ActionsTypes>) => {
+    dispatch(toggleIsEnabled(true, userID))
+    userAPI.follow(userID)
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        dispatch(follow(userID))
+      }
+      dispatch(toggleIsEnabled(false, userID))
+    })
+  }
+}
+
+export const unfollowUser = (userID: number) => {
+  return (dispatch: Dispatch<ActionsTypes>) => {
+    dispatch(toggleIsEnabled(true, userID))
+    userAPI.unfollow(userID)
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        dispatch(unfollow(userID))
+      }
+      dispatch(toggleIsEnabled(false, userID))
+    })
+  }
+}

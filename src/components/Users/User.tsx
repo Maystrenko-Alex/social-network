@@ -3,39 +3,21 @@ import { UserType } from '../../redux/users-reducer';
 import style from './User.module.css';
 import default_image from './../../assets/images/default_user_image.png';
 import { NavLink } from 'react-router-dom';
-import { userAPI } from '../../api/api';
 
 type UserPropsType = {
   user: UserType
   arrToggle: Array<number>
-  unfollowUser: (id: number) => void
-  followUser: (id: number)=> void
-  toggleIsEnabled: (isToggle: boolean, userID: number) => void
+  followUser: (userID: number) => void
+  unfollowUser: (userID: number) => void
 }
-const User = ({user,arrToggle, unfollowUser, followUser, toggleIsEnabled}: UserPropsType) => {
+const User = ({ user, arrToggle, unfollowUser, followUser }: UserPropsType) => {
 
-  const unfollowHandler = ()=> {
-    toggleIsEnabled(true, user.id)
-    userAPI.unfollow(user.id)
-    .then(response => {
-      if (response.data.resultCode === 0) {
-        unfollowUser(user.id)
-      }
-      toggleIsEnabled(false, user.id)
-    })
-  }
+  const unfollowHandler = () => unfollowUser(user.id);
 
-  const followHandler = ()=> {
-    toggleIsEnabled(true, user.id)
-    userAPI.follow(user.id)
-    .then(response => {
-      if (response.data.resultCode === 0) {
-        followUser(user.id)
-      }
-      toggleIsEnabled(false, user.id)
-    })
-  }
+  const followHandler = () => followUser(user.id);
 
+  const buttonStatus = arrToggle.some(el => el === user.id);
+  const currentImage = user.photos.large || user.photos.small || default_image;
 
   return (
     <div key={user.id} className={style.wrapperUser}>
@@ -45,7 +27,7 @@ const User = ({user,arrToggle, unfollowUser, followUser, toggleIsEnabled}: UserP
             <img
               className={style.imageAva}
               style={{ width: '70px', height: '70px' }}
-              src={user.photos.large || user.photos.small  || default_image}
+              src={currentImage}
               alt='img'
             />
           </NavLink>
@@ -53,8 +35,8 @@ const User = ({user,arrToggle, unfollowUser, followUser, toggleIsEnabled}: UserP
         <div className={style.userButton}>
           {
             user.followed
-              ? <button disabled={arrToggle.some(el => el === user.id)} onClick={unfollowHandler}>Unfollow</button>
-              : <button disabled={arrToggle.some(el => el === user.id)} onClick={followHandler}>Follow</button>
+              ? <button disabled={buttonStatus} onClick={unfollowHandler}>Unfollow</button>
+              : <button disabled={buttonStatus} onClick={followHandler}>Follow</button>
           }
         </div>
       </span>

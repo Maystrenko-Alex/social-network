@@ -9,11 +9,10 @@ type UsersPropsType = {
   currentPage: number
   users: UserType[]
   arrToggle: Array<number>
-  followUser: (id: number) => void
-  unfollowUser: (id: number) => void
   onPrevPage: () => void
   onNextPage: () => void
-  toggleIsEnabled: (isToggle: boolean, userID: number) => void
+  followUser: (userID: number) => void
+  unfollowUser: (userID: number) => void
 }
 
 const Users = (props: UsersPropsType) => {
@@ -21,14 +20,14 @@ const Users = (props: UsersPropsType) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
   let usersList = props.users.map(user => {
-    return ( 
-      <User key={user.id} user={user} 
-        followUser={props.followUser} 
+    return (
+      <User key={user.id} user={user}
         arrToggle={props.arrToggle}
-        unfollowUser={props.unfollowUser} 
-        toggleIsEnabled={props.toggleIsEnabled}
-        />
-  )})
+        followUser={props.followUser}
+        unfollowUser={props.unfollowUser}
+      />
+    )
+  })
 
   return (
     <div className={style.wrapper}>
