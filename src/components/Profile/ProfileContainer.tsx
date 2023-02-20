@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Params, useLocation, useParams } from "react-router-dom";
-import { userAPI } from "../../api/api";
-import { CurrentProfileType, setUserProfileAC } from "../../redux/profile-reducer";
+import { CurrentProfileType, getCurrentUser, setUserProfileAC } from "../../redux/profile-reducer";
 import { AppRootStateType } from "../../redux/redux-store";
 import { Profile } from "./Profile";
 
@@ -19,6 +18,7 @@ type ProfileContainerPropsType = {
   location: LocationType,
   setUserProfileAC: (currentProfile: CurrentProfileType) => void
   currentProfile: CurrentProfileType
+  getCurrentUser: (userId: number) => void
 }
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType>{
@@ -27,11 +27,8 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType>{
     let userId = Number(this.props.params.userId);
     if (!userId) {
       userId = 2;
-
     }
-    // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, { withCredentials: true })
-    userAPI.getCurrentProfile(userId)
-      .then(response => this.props.setUserProfileAC(response.data))
+    this.props.getCurrentUser(userId)
   }
   render() {
     return <Profile {...this.props} />
@@ -39,6 +36,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType>{
 }
 type WithParametrsProfileContainerPropsType = {
   currentProfile: CurrentProfileType
+  getCurrentUser: (userId: number) => void
   setUserProfileAC: (currentProfile: CurrentProfileType) => void
 }
 const WithParametrsProfileContainer = (props: WithParametrsProfileContainerPropsType) => {
@@ -58,5 +56,5 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
   }
 }
 
-export default connect(mapStateToProps, { setUserProfileAC })(WithParametrsProfileContainer)
+export default connect(mapStateToProps, { setUserProfileAC, getCurrentUser })(WithParametrsProfileContainer)
 
