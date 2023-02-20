@@ -9,6 +9,7 @@ import Settings from './components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
 import WithParametrsProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import { Login } from './components/Login/Login';
 
 type AppPropsType = {
 
@@ -24,11 +25,12 @@ export function App(props: AppPropsType) {
         <div className='content'>
           <Routes>
             <Route index element={ <WithParametrsProfileContainer />} />
-            <Route path='/profile/' element={<Navigate to={'/'} replace />} />
+            <Route path={'/login'} element={<Login />} />
+            <Route path='/profile' element={<Navigate to={'/'} replace />} />
             <Route path='/profile/:userId' element={<WithParametrsProfileContainer />} />
-            <Route path='/dialogs/*' element={<DialogsContainer />} />
+            <Route path='/dialogs' element={<DialogsContainer />} />
             <Route path='/users' element={<UsersContainer />} />
-            <Route path='/news/' element={<News />} />
+            <Route path='/news' element={<News />} />
             <Route path='/music' element={<Music />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/*' element={<NotFound />} />

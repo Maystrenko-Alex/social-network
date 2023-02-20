@@ -94,7 +94,7 @@ export const usersReducer = (state: UsersType = initialState, action: ActionsTyp
       return {
         ...state,
         arrToggle: action.isToggle
-        ? [...state.arrToggle, action.userID]
+          ? [...state.arrToggle, action.userID]
           : state.arrToggle.filter(el => el !== action.userID)
       }
     default:
@@ -126,12 +126,12 @@ export const followUser = (userID: number) => {
   return (dispatch: Dispatch<ActionsTypes>) => {
     dispatch(toggleIsEnabled(true, userID))
     userAPI.follow(userID)
-    .then(response => {
-      if (response.data.resultCode === 0) {
-        dispatch(follow(userID))
-      }
-      dispatch(toggleIsEnabled(false, userID))
-    })
+      .then(response => {
+        if (response.data.resultCode === 0) {
+          dispatch(follow(userID))
+        }
+        dispatch(toggleIsEnabled(false, userID))
+      })
   }
 }
 
@@ -139,11 +139,11 @@ export const unfollowUser = (userID: number) => {
   return (dispatch: Dispatch<ActionsTypes>) => {
     dispatch(toggleIsEnabled(true, userID))
     userAPI.unfollow(userID)
-    .then(response => {
-      if (response.data.resultCode === 0) {
-        dispatch(unfollow(userID))
-      }
-      dispatch(toggleIsEnabled(false, userID))
-    })
+      .then(response => {
+        if (response.data.resultCode === 0) {
+          dispatch(unfollow(userID))
+        }
+        dispatch(toggleIsEnabled(false, userID))
+      })
   }
 }

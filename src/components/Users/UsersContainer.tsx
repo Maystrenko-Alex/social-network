@@ -1,15 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppRootStateType } from '../../redux/redux-store';
-import { followUser, getUsers, setCurrentPage, setUsers, unfollowUser, UserType } from '../../redux/users-reducer';
+import { followUser, getUsers, setCurrentPage, unfollowUser, UserType } from '../../redux/users-reducer';
 import Users from './Users';
 import Preloader from '../Preloader/Preloader';
+import { Navigate } from 'react-router-dom';
 
 type UserPropsType = {
   users: UserType[]
   pageSize: number
   totalUsersCount: number
   currentPage: number
+  isAuth: boolean
   isFetching: boolean
   arrToggle: Array<number>
   setCurrentPage: (num: number) => void
@@ -40,7 +42,7 @@ class UsersContainer extends React.Component<UserPropsType> {
   }
 
   render() {
-
+    if (!this.props.isAuth) return <Navigate to={'/login'} />
     return (
       <>
         {
@@ -68,6 +70,7 @@ type MapStateToPropsType = {
   pageSize: number
   totalUsersCount: number
   currentPage: number
+  isAuth: boolean
   isFetching: boolean
   arrToggle: Array<number>
 }
@@ -78,9 +81,10 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     pageSize: state.usersPage.pageSize,
     currentPage: state.usersPage.currentPage,
     totalUsersCount: state.usersPage.totalUsersCount,
+    isAuth: state.auth.isAuth,
     isFetching: state.usersPage.isFetching,
     arrToggle: state.usersPage.arrToggle
   }
 }
 
-export default connect(mapStateToProps, { setCurrentPage, setUsers, getUsers, followUser, unfollowUser })(UsersContainer);
+export default connect(mapStateToProps, { setCurrentPage, getUsers, followUser, unfollowUser })(UsersContainer);
