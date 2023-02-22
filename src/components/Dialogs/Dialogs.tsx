@@ -3,7 +3,6 @@ import { DialogItem } from './DialogsItem/DialogItem';
 import s from './Dialogs.module.css';
 import { Message } from './Message/Message';
 import { MessagesPageType } from '../../redux/dialogs-reducer';
-import { Navigate } from 'react-router-dom';
 
 
 type DialogsPropsType = {
@@ -23,7 +22,7 @@ export const Dialogs = (props: DialogsPropsType) => {
   const onClickSendMessage = () => {
     props.sendMessageAC();
   }
-  if (!props.isAuth) return <Navigate to={'/login'} />
+  // if (!props.isAuth) return <Navigate to={'/login'} />
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>

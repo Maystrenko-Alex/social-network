@@ -1,4 +1,5 @@
 import React from 'react';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect/withAuthRedirect';
 
 const News = () => {
   return (
@@ -8,4 +9,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default withAuthRedirect(News);

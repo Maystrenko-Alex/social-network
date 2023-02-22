@@ -4,7 +4,7 @@ import { AppRootStateType } from '../../redux/redux-store';
 import { followUser, getUsers, setCurrentPage, unfollowUser, UserType } from '../../redux/users-reducer';
 import Users from './Users';
 import Preloader from '../Preloader/Preloader';
-import { Navigate } from 'react-router-dom';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect/withAuthRedirect';
 
 type UserPropsType = {
   users: UserType[]
@@ -42,7 +42,7 @@ class UsersContainer extends React.Component<UserPropsType> {
   }
 
   render() {
-    if (!this.props.isAuth) return <Navigate to={'/login'} />
+    // if (!this.props.isAuth) return <Navigate to={'/login'} />
     return (
       <>
         {
@@ -87,4 +87,4 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
   }
 }
 
-export default connect(mapStateToProps, { setCurrentPage, getUsers, followUser, unfollowUser })(UsersContainer);
+export default withAuthRedirect(connect(mapStateToProps, { setCurrentPage, getUsers, followUser, unfollowUser })(UsersContainer));
