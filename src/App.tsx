@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
-import { DialogsContainer } from './components/Dialogs/DialogsContainer';
 import Music from './components/Music/Music';
 import { NavbarContainer } from './components/Navbar/Navbar';
 import News from './components/News/News';
@@ -10,6 +9,7 @@ import UsersContainer from './components/Users/UsersContainer';
 import WithParametrsProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import { Login } from './components/Login/Login';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 type AppPropsType = {
 
@@ -24,7 +24,7 @@ export function App(props: AppPropsType) {
         <NavbarContainer />
         <div className='content'>
           <Routes>
-            <Route index element={ <WithParametrsProfileContainer />} />
+            <Route index element={<WithParametrsProfileContainer />} />
             <Route path={'/login'} element={<Login />} />
             <Route path='/profile' element={<Navigate to={'/'} replace />} />
             <Route path='/profile/:userId' element={<WithParametrsProfileContainer />} />

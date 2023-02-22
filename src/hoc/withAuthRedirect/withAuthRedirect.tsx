@@ -11,15 +11,23 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
   }
 }
 
-export const withAuthRedirect = (Component: ComponentType) => {
+export function withAuthRedirect <T extends {}> (Component: ComponentType<T>)  {
 
-  class RedirectComponent extends React.Component<MapStateToPropsType>{
-    render() {
-      let { isAuth, ...restProps } = this.props;
+  // class RedirectComponent extends React.Component<MapStateToPropsType>{
+    
+  //   render() {
+  //     let { isAuth, ...restProps } = this.props;
+  //     if (!isAuth) return <Navigate to={'/login'} />
+  //     return <Component {...restProps as T} />
+  //   }
+  // }
+  const RedirectComponent = (props: MapStateToPropsType) => {
+    let { isAuth, ...restProps } = props;
       if (!isAuth) return <Navigate to={'/login'} />
-      return <Component {...restProps} />
-    }
+      return <Component {...restProps as T} />
   }
-  let ConnectedRedirectComponent = connect(mapStateToProps)(RedirectComponent)
+debugger
+
+  let ConnectedRedirectComponent = connect(mapStateToProps, {})(RedirectComponent);
   return ConnectedRedirectComponent;
 }
