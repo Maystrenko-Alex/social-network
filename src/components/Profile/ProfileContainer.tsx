@@ -43,11 +43,11 @@ type WithParametrsProfileContainerPropsType = {
   setUserProfileAC: (currentProfile: CurrentProfileType) => void
 }
 const WithParametrsProfileContainer = (props: WithParametrsProfileContainerPropsType) => {
-  let params = useParams<string>();
-  let location = useLocation();
+  // let params = useParams<string>();
+  // let location = useLocation();
 
   return (
-    <ProfileContainer {...props} params={params} location={location} />
+    <ProfileContainer {...props} params={useParams<string>()} location={useLocation()} />
   )
 }
 type MapStateToPropsType = {
