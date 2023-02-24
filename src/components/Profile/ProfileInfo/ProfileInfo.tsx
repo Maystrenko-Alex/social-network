@@ -6,7 +6,9 @@ import Preloader from '../../Preloader/Preloader';
 import { ProfileStatus } from './ProfileStatus';
 
 type ProfileInfoPropsType = {
+  status: string
   currentProfile: CurrentProfileType
+  updateStatus: (status: string) => void
 }
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -23,7 +25,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         <div className={style.info}>
           <h3>My name: {props.currentProfile.fullName}</h3>
           <p>About me: {props.currentProfile.abouteMe}</p>
-          <ProfileStatus status={'status new'}/>
+          <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
           <p>My social networks: {props.currentProfile.contacts.facebook}</p>
         </div>
         
