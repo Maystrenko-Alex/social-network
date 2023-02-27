@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from 'react';
 
-// type StateType = {
-//   editMode: boolean
-//   title: string
-// }
+type StateType = {
+  editMode: boolean
+  title: string
+}
 
 type ProfileStatusPropsType = {
   status: string
@@ -23,15 +23,20 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     this.setState({
       editMode: Number(!this.state.editMode)
     })
-    
+
   }
- 
+
   changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({title: e.currentTarget.value})
+    this.setState({ title: e.currentTarget.value })
+  }
+
+  componentDidUpdate(prevProps: ProfileStatusPropsType, prevState: StateType): void {
+    if (prevProps.status !== this.props.status) {
+      this.setState({ title: this.props.status });
+    }
   }
 
   render() {
-
     return (
       <div>
         <div onDoubleClick={this.toggleEditMode}>
