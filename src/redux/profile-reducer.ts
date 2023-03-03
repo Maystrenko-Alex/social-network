@@ -2,7 +2,6 @@ import { Dispatch } from "redux";
 import { profileAPI, userAPI } from "../api/api";
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_TEXT_POST = 'UPDATE-NEW-TEXT-POST';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_STATUS = 'SET-STATUS';
 const UPDATE_STATUS = 'UPDATE-STATUS';
@@ -18,17 +17,14 @@ type SetStatusAT = {
 }
 type SetUserProfileAT = {
   type: 'SET-USER-PROFILE',
-  currentProfile:  CurrentProfileType
+  currentProfile: CurrentProfileType
 }
 type AddPostAT = {
   type: 'ADD-POST'
-}
-export type UpdateNewTextPostAT = {
-  type: "UPDATE-NEW-TEXT-POST"
-  text: string
+  newPostText: string
 }
 
-export type ActionsTypes = AddPostAT | UpdateNewTextPostAT | SetUserProfileAT | SetStatusAT | UpdateStatusAT;
+export type ActionsTypes = AddPostAT | SetUserProfileAT | SetStatusAT | UpdateStatusAT;
 
 export type CurrentProfileType = {
   abouteMe: string
@@ -44,8 +40,8 @@ type PhotosType = {
   large: string
 }
 type ContactsType = {
-  facebook:string
-  github:string
+  facebook: string
+  github: string
   instagram: string
   mainLink: string
   twitter: string
@@ -59,14 +55,12 @@ type PostType = {
   likesCount: number
 }
 export type ProfilePageType = {
-  newTextPost: string
   posts: Array<PostType>
   currentProfile: CurrentProfileType
   status: string
 }
 
-let initialState : ProfilePageType= {
-  newTextPost: '',
+let initialState: ProfilePageType = {
   posts: [
     { id: 1, message: 'Hello! How are youuuu?', likesCount: 1 },
     { id: 2, message: 'Its my first post ;)', likesCount: 13 },
@@ -81,26 +75,22 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     case ADD_POST:
       return {
         ...state,
-        newTextPost: state.newTextPost,
-        posts: [...state.posts, { id: new Date().getTime(), message: state.newTextPost, likesCount: 0 }]
+        posts: [...state.posts, { id: new Date().getTime(), message: action.newPostText, likesCount: 0 }]
       };
-    case UPDATE_NEW_TEXT_POST:
-      return { ...state, newTextPost: action.text };
     case SET_USER_PROFILE:
-      return {...state, currentProfile: action.currentProfile};
+      return { ...state, currentProfile: action.currentProfile };
     case SET_STATUS:
-      return {...state, status: action.status};
+      return { ...state, status: action.status };
     case UPDATE_STATUS:
-      return {...state, status: action.status}
+      return { ...state, status: action.status }
     default:
       return state;
   }
 }
 
-export const addPostAC = (): AddPostAT => ({ type: ADD_POST });
-export const updateNewTextPostAC = (text: string): UpdateNewTextPostAT => ({ type: UPDATE_NEW_TEXT_POST, text});
-export const setUserProfileAC = (currentProfile: CurrentProfileType): SetUserProfileAT => ({ type: SET_USER_PROFILE, currentProfile});
-export const setStatus = (status: string): SetStatusAT => ({type: SET_STATUS, status})
+export const addPostAC = (newPostText: string): AddPostAT => ({ type: ADD_POST, newPostText });
+export const setUserProfileAC = (currentProfile: CurrentProfileType): SetUserProfileAT => ({ type: SET_USER_PROFILE, currentProfile });
+export const setStatus = (status: string): SetStatusAT => ({ type: SET_STATUS, status })
 
 export const getCurrentUser = (userId: number) => {
   return (dispatch: Dispatch<ActionsTypes>) => {

@@ -1,4 +1,3 @@
-const UPDATE_NEW_TEXT_MESSAGE = 'UPDATE-NEW-TEXT-MESSAGE';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
 
@@ -12,18 +11,15 @@ export type MessageType = {
 }
 export type MessagesPageType = {
   dialogs: Array<DialogType>,
-  messages: Array<MessageType>,
-  newTextMessage: string
-}
- type UpdateNewTextMessageAT = {
-  type: 'UPDATE-NEW-TEXT-MESSAGE',
-  text: string
-}
- type SendMessageAT = {
-  type: 'SEND-MESSAGE'
+  messages: Array<MessageType>
 }
 
-type ActionsTypes = SendMessageAT | UpdateNewTextMessageAT;
+ type SendMessageAT = {
+  type: 'SEND-MESSAGE'
+  newMessageText: string
+}
+
+type ActionsTypes = SendMessageAT;
 
 let initialState = {
   dialogs: [
@@ -38,25 +34,20 @@ let initialState = {
     { id: 1, message: 'Hi' },
     { id: 2, message: 'How are you?' },
     { id: 3, message: 'Yooo' }
-  ],
-  newTextMessage: '',
+  ]
 };
 
 export const dialogsReducer = (state: MessagesPageType = initialState, action: ActionsTypes): MessagesPageType => {
 
   switch (action.type) {
-    case UPDATE_NEW_TEXT_MESSAGE:
-      return { ...state, newTextMessage: action.text };
     case SEND_MESSAGE:
       return {
         ...state,
-        messages: [...state.messages, { id: Number(new Date().getTime()), message: state.newTextMessage }],
-        newTextMessage: ''
+        messages: [...state.messages, { id: Number(new Date().getTime()), message: action.newMessageText }],
       };
     default:
       return state;
   }
 }
 
-export const sendMessageAC = (): SendMessageAT => ({ type: SEND_MESSAGE });
-export const updateNewTextMessageAC = (text: string): UpdateNewTextMessageAT => ({ type: UPDATE_NEW_TEXT_MESSAGE, text });
+export const sendMessageAC = (newMessageText: string): SendMessageAT => ({ type: SEND_MESSAGE, newMessageText});
