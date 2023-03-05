@@ -1,4 +1,5 @@
 import React, { HTMLInputTypeAttribute } from 'react';
+import styles from './FormControls.module.css';
 import {  WrappedFieldInputProps, WrappedFieldMetaProps } from 'redux-form';
 
 type TextAreaPropsType = {
@@ -8,11 +9,17 @@ type TextAreaPropsType = {
   type?: HTMLInputTypeAttribute,
   autoFocus?: boolean
 }
-export const Textarea = (props:TextAreaPropsType) => {
-console.log(typeof props)
+export const Textarea = ({meta, input, ...props}:TextAreaPropsType) => {
+console.log(meta.error)
+const hasError = meta.touched && meta.error;
   return (
-    <div>
-      <textarea {...props}/>
+    <div className={styles.formControl + ' ' + (hasError ? styles.error : '')}>
+      <div>
+        <textarea {...input} {...props}/>
+      </div>
+      <div>
+      {hasError && <span>{meta.error}</span>}
+      </div>
     </div>
   );
 }
