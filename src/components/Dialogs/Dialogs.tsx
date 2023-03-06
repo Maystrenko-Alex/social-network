@@ -38,6 +38,7 @@ type AddMessagePropsType = {
 
 const maxLength100 = maxLengthCreator(100);
 const minLength1 = minLengthCreator(1);
+
 const AddMessage = (props: InjectedFormProps<AddMessagePropsType>) => {
   return (
     <form onSubmit={props.handleSubmit}>
