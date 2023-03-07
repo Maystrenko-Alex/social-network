@@ -8,7 +8,7 @@ import Settings from './components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
 import WithParametrsProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import { Login } from './components/Login/Login';
+import Login from './components/Login/Login';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 type AppPropsType = {

@@ -8,7 +8,7 @@ type FormsPropsType = {
   placeholder?: string,
   type?: HTMLInputTypeAttribute,
   autoFocus?: boolean,
-  children: React.ReactNode
+  children: JSX.Element
 }
 
 const FormControl = ({meta, input, children, ...props}:FormsPropsType) => {
@@ -27,7 +27,8 @@ const FormControl = ({meta, input, children, ...props}:FormsPropsType) => {
 }
 
 export const Input = (props:FormsPropsType) => {
-  const {input, meta, children,  ...restProps} = props;
+  const {input, meta, ...restProps} = props;
+  
   return (
     <FormControl {...props}>
       <input {...input} {...restProps}/>

@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { profileAPI, userAPI } from "../api/api";
+import { profileAPI } from "../api/api";
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
@@ -94,7 +94,7 @@ export const setStatus = (status: string): SetStatusAT => ({ type: SET_STATUS, s
 
 export const getCurrentUser = (userId: number) => {
   return (dispatch: Dispatch<ActionsTypes>) => {
-    userAPI.getCurrentProfile(userId)
+    profileAPI.getCurrentProfile(userId)
       .then(response => dispatch(setUserProfileAC(response.data)))
   }
 }

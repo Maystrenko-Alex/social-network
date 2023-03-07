@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { authMe, setUserDataAC } from "../../redux/auth-reducer";
+import { authMe, logout } from "../../redux/auth-reducer";
 import { AppRootStateType } from "../../redux/redux-store";
 import Header from "./Header";
 
@@ -8,7 +8,7 @@ type HeaderContainerPropsType = {
   isAuth: boolean
   login: string | null
   authMe: () => void
-  setUserDataAC: (data: { id: number, email: string, login: string }) => void
+  logout: () => void
 }
 export class HeaderContainer extends React.Component<HeaderContainerPropsType>{
 
@@ -16,7 +16,7 @@ export class HeaderContainer extends React.Component<HeaderContainerPropsType>{
     this.props.authMe();
   }
   render() {
-    return <Header login={this.props.login} isAuth={this.props.isAuth} />
+    return <Header login={this.props.login} isAuth={this.props.isAuth} logout={this.props.logout}/>
   }
 }
 
@@ -30,4 +30,4 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     isAuth: state.auth.isAuth
   }
 }
-export default connect(mapStateToProps, { setUserDataAC, authMe })(HeaderContainer)
+export default connect(mapStateToProps, { authMe, logout })(HeaderContainer)
